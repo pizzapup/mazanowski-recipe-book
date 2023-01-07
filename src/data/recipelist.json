@@ -1,0 +1,15 @@
+[
+  {
+    "category": "appetizers & dips",
+    "name": "polish mistakes",
+    "ingredients": [
+      { "amount": 1, "unit": "lb", "ingredient": "ground beef" },
+      { "amount": 1, "unit": "lb", "ingredient": "roll of hot sausage" },
+      { "amount": 1, "unit": "lb", "ingredient": "velveeta" },
+      { "amount": 0.5, "unit": "tsp", "ingredient": "garlic powder" },
+      { "amount": 0.5, "unit": "tsp", "ingredient": "worchestire" },
+      { "amount":1, "unit": "tsp", "ingredient": "oregano" },
+      { "amount":1, "unit": "pkg", "ingredient": "pepperidge farm rye bread" }
+    ], "instructions":["brown and drain meat and sausage. melt cheese with meats. add seasonings and mix well. let cool. spread on rye bread. bake 20-25 minutes at 350 degrees"]
+  }
+]
