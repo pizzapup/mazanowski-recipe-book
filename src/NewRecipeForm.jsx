@@ -73,6 +73,14 @@ function NewRecipeForm() {
         return { ...ingredient, amount: e.target.value };
       });
       setIngredients(newIngredients);
+    } else if (inputType === "unit") {
+      const newIngredients = ingredients.map((ingredient, index) => {
+        if (idx !== index) {
+          return ingredient;
+        }
+        return { ...ingredient, unit: e.target.value };
+      });
+      setIngredients(newIngredients);
     }
   }
 
@@ -155,44 +163,58 @@ function NewRecipeForm() {
           <legend>Ingredients</legend>
           {ingredients.map((ing, idx) => {
             return (
-              <div key={idx}>
-                <label>
-                  Ingredient Name
-                  <input
-                    type="text"
-                    id={"ing-name-" + idx}
-                    name={"ing-name-" + idx}
-                    value={ing.name}
-                    onChange={handleIngredientChange}
-                  />
-                </label>
-                <label>
-                  Ingredient Amount
-                  <input
-                    type="text"
-                    id={"ing-amt-" + idx}
-                    name={"ing-amt-" + idx}
-                    value={ing.amount}
-                    onChange={handleIngredientChange}
-                  />
-                </label>
+              <ul key={idx}>
+                <li>
+                  <label>
+                    Ingredient Name
+                    <input
+                      type="text"
+                      id={"ing-name-" + idx}
+                      name={"ing-name-" + idx}
+                      value={ing.name}
+                      onChange={handleIngredientChange}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    Ingredient Amount
+                    <input
+                      type="text"
+                      id={"ing-amt-" + idx}
+                      name={"ing-amt-" + idx}
+                      value={ing.amount}
+                      onChange={handleIngredientChange}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    Measurement Unit
+                    <input
+                      type="text"
+                      id={"ing-unit-" + idx}
+                      name={"ing-unit-" + idx}
+                      value={ing.unit}
+                      onChange={handleIngredientChange}
+                    />
+                  </label>
+                </li>
                 <button
                   id={"ing-remove-" + idx}
-                  color="secondary"
                   type="button"
                   onClick={handleIngredientRemove}
                 >
-                  remove ingredient
+                  remove
                 </button>
-              </div>
+              </ul>
             );
           })}
           <button
-            color="primary"
             type="button"
             onClick={handleIngredientAdd}
           >
-            add ingredient
+            add another ingredient
           </button>
         </fieldset>
 
@@ -202,7 +224,7 @@ function NewRecipeForm() {
             return (
               <div key={idx}>
                 <label>
-                  Instructions
+                  Instruction
                   <input
                     type="text"
                     id={"instr-" + idx}
@@ -213,22 +235,20 @@ function NewRecipeForm() {
                 </label>
                 <button
                   id={"instr-remove-" + idx}
-                  color="secondary"
                   type="button"
                   onClick={handleInstructionRemove}
                 >
-                  remove instruction
+                  remove
                 </button>
               </div>
             );
           })}
 
           <button
-            color="primary"
             type="button"
             onClick={handleInstructionAdd}
           >
-            add instruction
+            add another instruction
           </button>
         </fieldset>
         <label>

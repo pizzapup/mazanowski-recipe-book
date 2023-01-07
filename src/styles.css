@@ -12,6 +12,11 @@ body {
 * {
   font-family: var(--default-font-fam);
 }
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 /* input,
 button {
   padding: 15px 20px;
