@@ -12,18 +12,56 @@ body {
 * {
   font-family: var(--default-font-fam);
 }
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+    height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
 form {
   display: flex;
   flex-direction: column;
+  max-width: 80vw;
+  margin: 0 auto
+}
+input {
+  border-radius: 3px;
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid transparent
+}
+.ing-header div {
+  flex: 1
+}
+.fieldset-ingredients ul {
+  flex-direction: column;
+  gap: 15px;
+}
+.fieldset-ingredients input {
+  background-color: #fafafa;
+
+}
+.fieldset-ingredients li {
+  display: flex;
+}
+.ing-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-right: 5px;
+}
+.ing-amt input {
+  max-width: 45px;
+}
+.ing-unit input {
+  max-width: 50px;
 }
 
-/* input,
-button {
-  padding: 15px 20px;
-  min-height: 45px;
-  min-width: 45px;
-  border-radius: 3px;
-}
-button {
-  border: 2px solid transparent;
-} */
