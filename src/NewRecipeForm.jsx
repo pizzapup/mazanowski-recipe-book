@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase/firebase-config";
+import { db, storage } from "./firebase/firebase-config";
 import { collection, addDoc, getDocs } from "firebase/firestore";
-
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 function NewRecipeForm() {
-  /* defining our state variables */
-
+  const [file, setFile] = useState("");
+  const [recipeImg, setRecipeImg] = useState("");
   const [recipeName, setRecipeName] = useState("");
+  const [recipeCategory, setRecipeCategory] = useState("");
   const [ingredients, setIngredients] = useState([
     {
       name: "",
       amount: "",
+      unit: "",
     },
   ]);
   const [instructions, setInstructions] = useState([
@@ -17,129 +19,110 @@ function NewRecipeForm() {
       text: "",
     },
   ]);
-  const initialValues = {
-    title: recipeName,
-    ingredients: ingredients,
-    instructions: instructions,
-  };
-  const [values, setValues] = useState(initialValues);
-  // event handlers
-  function handleRecipeNameChange(event) {
-    let newName = event.target.value;
-    setRecipeName(newName);
+  function handleImageChange(e) {
+    setFile(e.target.files[0]);
   }
-  function handleRecipeInstructionChange(event) {
-    let instruction = event.target.value;
-    setInstructions(instruction);
+  function handleUpload() {
+    const storageRef = ref(storage, `/recipe-imgs/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+          setRecipeImg(url);
+        });
+        !file &&
+          setRecipeImg(
+            "gs://recipe-book-d5784.appspot.com/files/food-img-placeholder.jpg"
+          );
+      }
+    );
   }
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  };
-  /*
-   * For the ingredients and instructions, we want the event handlers to generate new arrays,
-   * NOT modify the existing ones
-   */
-  function handleIngredientChange(event) {
-    //grab the index and the input type
-    let idx = parseInt(event.target.id.split("-")[2]);
-    let inputType = event.target.id.split("-")[1];
-
+  function handleRecipeNameChange(e) {
+    setRecipeName(e.target.value);
+  }
+  function handleRecipeCatChange(e) {
+    setRecipeCategory(e.target.value);
+  }
+  function handleIngredientChange(e) {
+    let idx = parseInt(e.target.id.split("-")[2]);
+    let inputType = e.target.id.split("-")[1];
+    // const newIngredients = ingredients.map((ingredient, index) => {
+    //   if (idx !== index) {
+    //     return ingredient;
+    //   }
+    //   return { ...ingredient, [inputType]: e.target.value };
+    // });
+    // setIngredients(newIngredients);
     if (inputType === "name") {
-      // we only want to modify one element, easiest way to do this is to use map to generate a new array
-      // the new array will be the same with the one element modified as needed
       const newIngredients = ingredients.map((ingredient, index) => {
-        // check if we are at the index that we want
         if (idx !== index) {
-          // if it's not the element we want to change we just return the element
           return ingredient;
         }
-        // if we have the element that needs to be modified, we return the modified element
-        // using object destructuring we just return the original object, with the name field modified
-        return { ...ingredient, name: event.target.value };
+        return { ...ingredient, name: e.target.value };
       });
-
-      // be sure to actually update the React state variable so it re-renders
       setIngredients(newIngredients);
     } else if (inputType === "amt") {
       const newIngredients = ingredients.map((ingredient, index) => {
         if (idx !== index) {
           return ingredient;
         }
-        return { ...ingredient, amount: event.target.value };
+        return { ...ingredient, amount: e.target.value };
       });
       setIngredients(newIngredients);
     }
   }
 
-  function handleIngredientRemove(event) {
-    /*
-     * To remove an element, we just use the array.filter function to genereate a new array without the
-     * element being deleted
-     */
-    console.log(event.target.id);
-    let idx = parseInt(event.target.id.split("-")[2]);
+  function handleIngredientRemove(e) {
+    console.log(e.target.id);
+    let idx = parseInt(e.target.id.split("-")[2]);
     console.log("Removing ingredient " + idx);
     let newIngredients = ingredients.filter(
       (ingredient, index) => idx !== index
     );
     setIngredients(newIngredients);
   }
-
-  function handleIngredientAdd(event) {
-    /*
-     * Same concept as the above methods, concat returns a new array. In this case we get a new array with an
-     * element containing an empty string in both fields at the end of it
-     */
+  function handleIngredientAdd(e) {
     let newIngredients = ingredients.concat({ name: "", amount: "" });
     setIngredients(newIngredients);
   }
+  function handleInstructionChange(e) {
+    let idx = parseInt(e.target.id.split("-")[1]);
+    const newInstructions = instructions.map((instruction, index) => {
+      if (idx !== index) {
+        return instruction;
+      }
+      return { ...instruction, text: e.target.value };
+    });
+    setInstructions(newInstructions);
+  }
+  function handleInstructionRemove(e) {
+    console.log(e.target.id);
+    let idx = parseInt(e.target.id.split("-")[2]);
+    console.log("Removing instruction " + idx);
+    let newinstructions = instructions.filter(
+      (instruction, index) => idx !== index
+    );
+    setInstructions(newinstructions);
+  }
+  function handleInstructionAdd(e) {
+    let newInstructions = instructions.concat({ text: "" });
+    setInstructions(newInstructions);
+  }
 
-  //   /*
-  //    * Instruction functions are mostly the same as the ingredient functions
-  //    * Only changes here are the object property names
-  //    */
-  //   function handleInstructionChange(event) {
-  //     let idx = parseInt(event.target.id.split("-")[1]);
-
-  //     const newInstructions = instructions.map((instruction, index) => {
-  //       if (idx !== index) {
-  //         return instruction;
-  //       }
-  //       return { ...instruction, text: event.target.value };
-  //     });
-
-  //     setInstructions(newInstructions);
-  //   }
-
-  //   function handleInstructionRemove(event) {
-  //     console.log(event.target.id);
-  //     let idx = parseInt(event.target.id.split("-")[2]);
-  //     console.log("Removing instruction " + idx);
-  //     let newinstructions = instructions.filter(
-  //       (instruction, index) => idx !== index
-  //     );
-  //     setInstructions(newinstructions);
-  //   }
-
-  //   function handleInstructionAdd(event) {
-  //     let newInstructions = instructions.concat({ text: "" });
-  //     setInstructions(newInstructions);
-  //   }
-  //   /*
-  //    * End of Instruction Functions
-  //    */
-
-  /*
-   * When the form is submitted, we want to make a POST call to our API to add the recipe
-   * to our Database
-   */
-  //   function handleSubmit(event) {
-  //     // prevent the default form submit action
-  //     event.preventDefault();
-  //   }
-  const addRecipe = async (e) => {
+  const submitRecipe = async (e) => {
     e.preventDefault();
+    handleUpload();
+    const values = {
+      name: recipeName,
+      category: recipeCategory,
+      ingredients: ingredients,
+      instructions: instructions,
+      img: recipeImg,
+    };
     try {
       const docRef = await addDoc(collection(db, "recipes"), values);
       console.log("Document written with ID: ", docRef.id);
@@ -149,103 +132,118 @@ function NewRecipeForm() {
   };
   return (
     <>
-      <form onSubmit={addRecipe}>
+      <form onSubmit={submitRecipe}>
         <label>
           Recipe Name
           <input
             type="text"
             name="recipe-name"
-            value={values.name}
+            value={recipeName}
             onChange={handleRecipeNameChange}
           />
         </label>
-
-        {ingredients.map((ing, idx) => {
-          return (
-            <div key={idx}>
-              <label>
-                Ingredient Name
-                <input
-                  type="text"
-                  id={"ing-name-" + idx}
-                  name={"ing-name-" + idx}
-                  value={ing.name}
-                  onChange={handleIngredientChange}
-                />
-              </label>
-              <label>
-                Ingredient Amount
-                <input
-                  type="text"
-                  id={"ing-amt-" + idx}
-                  name={"ing-amt-" + idx}
-                  value={ing.amount}
-                  onChange={handleIngredientChange}
-                />
-              </label>
-              <button
-                id={"ing-remove-" + idx}
-                color="secondary"
-                type="button"
-                onClick={handleIngredientRemove}
-              >
-                remove ingredient
-              </button>
-            </div>
-          );
-        })}
-
-        <button
-          color="primary"
-          type="button"
-          onClick={handleIngredientAdd}
-        >
-          add ingredient
-        </button>
         <label>
-          Instructions:
-          <textarea
-            name="instructions"
-            values={values.instructions}
-            onChange={handleRecipeInstructionChange}
+          Recipe Category
+          <input
+            type="text"
+            name="recipe-category"
+            value={recipeCategory}
+            onChange={handleRecipeCatChange}
           />
         </label>
-        {/* {instructions.map((instr, idx) => {
-          return (
-            <div key={idx}>
-              <label>
-                Instructions
-                <input
-                  type="text"
-                  id={"instr-" + idx}
-                  name={"instr-" + idx}
-                  multiline
-                  value={instr.text}
-                  onChange={handleInstructionChange}
-                />
-              </label>
-              <button
-                id={"instr-remove-" + idx}
-                color="secondary"
-                type="button"
-                onClick={handleInstructionRemove}
-              >
-                remove instruction
-              </button>
-            </div>
-          );
-        })}
+        <fieldset>
+          <legend>Ingredients</legend>
+          {ingredients.map((ing, idx) => {
+            return (
+              <div key={idx}>
+                <label>
+                  Ingredient Name
+                  <input
+                    type="text"
+                    id={"ing-name-" + idx}
+                    name={"ing-name-" + idx}
+                    value={ing.name}
+                    onChange={handleIngredientChange}
+                  />
+                </label>
+                <label>
+                  Ingredient Amount
+                  <input
+                    type="text"
+                    id={"ing-amt-" + idx}
+                    name={"ing-amt-" + idx}
+                    value={ing.amount}
+                    onChange={handleIngredientChange}
+                  />
+                </label>
+                <button
+                  id={"ing-remove-" + idx}
+                  color="secondary"
+                  type="button"
+                  onClick={handleIngredientRemove}
+                >
+                  remove ingredient
+                </button>
+              </div>
+            );
+          })}
+          <button
+            color="primary"
+            type="button"
+            onClick={handleIngredientAdd}
+          >
+            add ingredient
+          </button>
+        </fieldset>
 
-        <button
-          color="primary"
-          type="button"
-          onClick={handleInstructionAdd}
-        >
-          add instruction
-        </button> */}
+        <fieldset>
+          <legend>Instructions</legend>
+          {instructions.map((instr, idx) => {
+            return (
+              <div key={idx}>
+                <label>
+                  Instructions
+                  <input
+                    type="text"
+                    id={"instr-" + idx}
+                    name={"instr-" + idx}
+                    value={instr.text}
+                    onChange={handleInstructionChange}
+                  />
+                </label>
+                <button
+                  id={"instr-remove-" + idx}
+                  color="secondary"
+                  type="button"
+                  onClick={handleInstructionRemove}
+                >
+                  remove instruction
+                </button>
+              </div>
+            );
+          })}
 
+          <button
+            color="primary"
+            type="button"
+            onClick={handleInstructionAdd}
+          >
+            add instruction
+          </button>
+        </fieldset>
+        <label>
+          Upload image (optional)
+          <input
+            type="file"
+            accept="/image/*"
+            onChange={handleImageChange}
+          />
+        </label>
         <button type="submit">Submit Recipe</button>
       </form>
+      <div>
+        <div></div>
+      </div>
     </>
   );
 }
