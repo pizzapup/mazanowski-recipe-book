@@ -2,13 +2,19 @@ import "./styles.css";
 import { db } from "./firebase/firebase-config";
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import FormikForm from "./components/FormikForm";
 
 const Todo = () => {
   const [recipe, setRecipe] = useState("");
   const [recipeList, setRecipeList] = useState([]);
   const initialValues = {
     title: "cornbread",
-    ingredients: [{ name: "corn" }, { name: "bread" }],
+    servings: 2,
+    time: { hour: 1, min: 30 },
+    ingredients: [
+      { name: "corn", amount: "1 cob" },
+      { name: "bread", amount: "1 loaf" },
+    ],
     instructions: [
       { instruction: "add to bowl" },
       { instruction: "preheat oven" },
@@ -83,6 +89,7 @@ const Todo = () => {
 function App() {
   return (
     <>
+      <FormikForm />
       <Todo />
     </>
   );
