@@ -1,6 +1,6 @@
 import { useState } from "react";
+import NewRecipeForm from "./components/CreateRecipe/NewRecipeForm";
 import "./styles.css";
-import NewRecipeForm from "./NewRecipeForm";
 export default function App() {
   return (
     <>
