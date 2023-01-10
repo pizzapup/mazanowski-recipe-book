@@ -8,21 +8,19 @@ import { parse } from "recipe-ingredient-parser-v3";
 const instructions =
   "Add ingredients in bulk. Separate each ingredient by commas. You can add additional info such as quantity, unit of measurement (cups, oz, box), and preparation (diced, sliced, whole) to each entry. Example: 2lbs flour, 2tsp vanilla extract, 3 cups water, 2 cloves garlic minced";
 
-export default function ZestIngredients({ getData, getPostKey, postKey }) {
+export default function ZestIngredients({ getData }) {
   const [userInput, setUserInput] = useState("");
   const [ingData, setIngData] = useState([]);
-  const [zestful, setZestful] = useState([]);
-  const userIngredients = [];
-  function parseUserInput() {
-    if (userInput.includes(",") == true) {
-      userInput.split(",").forEach(function (item) {
+  const [resultsData, setResultsData] = useState();
+  function parseUserInput(input) {
+    const userIngredients = [];
+    if (input.includes(",") == true) {
+      input.split(",").forEach(function (item) {
         userIngredients.push(item.trim());
       });
-      console.log(userIngredients);
     } else {
-      userIngredients.push(userInput);
+      userIngredients.push(input);
     }
-    console.log(userIngredients);
     return userIngredients;
   }
   const options = {
@@ -37,24 +35,35 @@ export default function ZestIngredients({ getData, getPostKey, postKey }) {
   };
 
   function handleUserInput(e) {
-    setUserInput(e.target.value);
+    // setUserInput(e.target.value);
+    // console.log(userInput);
+    const newParse = parseUserInput(e.target.value);
+    console.log(newParse);
+    setUserInput(newParse);
   }
-  const handleIngredientSubmit = (e) => {
-    e.preventDefault();
-    setIngData(parseUserInput());
+  function sendAxios() {
     axios
       .request(options)
       .then(function (response) {
-        setZestful(response.data.results);
         getData(response.data.results);
+        setResultsData(response.data.results);
+        console.log(response.data.results);
       })
       .catch(function (error) {
         console.error(error);
       });
+  }
+  const handleIngredientSubmit = (e) => {
+    e.preventDefault();
+    setIngData(userInput);
+    console.log(ingData);
+    // sendAxios();
+    getData(resultsData);
   };
 
   return (
-    <InputGroup legend="ingredients">
+    // <InputGroup legend="ingredients" className="ingredients-fieldset">
+    <>
       <Input
         label="ingredients"
         type="text"
@@ -65,6 +74,7 @@ export default function ZestIngredients({ getData, getPostKey, postKey }) {
       <button type="button" onClick={handleIngredientSubmit}>
         click to submit userinput
       </button>
-    </InputGroup>
+    </>
+    // </InputGroup>
   );
 }

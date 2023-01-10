@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import Ingredients, { EditIngredients, ingredientSchema } from "./Ingredients";
+import { useState } from "react";
+import { ingredientSchema } from "./Ingredients";
 import Instructions, { instructionSchema } from "./Instructions";
-import Input, { InputGroup } from "../Input/Input";
+import Input from "../Input/Input";
 import ImageInput, { defaultImgUrl } from "./ImageInput";
-import { onValue, ref, remove, update, push, child } from "firebase/database";
-import { deleteData, updateData, writeData } from "../../firebase/dbHelpers";
-import { db } from "../../firebase/firebase-config";
+import { writeData } from "../../firebase/dbHelpers";
 import ZestIngredients from "./ZestfulApi";
-import { parse } from "recipe-ingredient-parser-v3";
+import "./NewRecipeForm.css";
+import axios from "axios";
+
 const uids = "default";
+
 export default function NewRecipeForm() {
   const initialValues = {
     name: "",
@@ -22,9 +23,11 @@ export default function NewRecipeForm() {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
   const getIngredients = (ingr) => {
     setValues({ ...values, ingredients: ingr });
   };
+
   const getInstructions = (instr) => {
     setValues({ ...values, instructions: instr });
   };
@@ -36,9 +39,23 @@ export default function NewRecipeForm() {
     console.log(values);
     writeData(values, ["posts", `user-posts/${uids}`]);
   };
-
+  const [newData, setNewData] = useState();
+  const getIngData = (ing) => {
+    setNewData(ing);
+  };
+  const handleIngSubmit = (e) => {
+    const ingData = getIngData;
+    axios
+      .request(ingData)
+      .then(function (response) {
+        console.log(response.data.results);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
   return (
-    <>
+    <div className="form-container">
       <form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -55,10 +72,10 @@ export default function NewRecipeForm() {
           onChange={handleInputChange}
         />
         <ZestIngredients getData={getIngredients} />
-        <Instructions getData={getInstructions} />
+        <Instructions getData={getInstructions} getIngData={getIngData} />
         <ImageInput getData={getImage} />
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 }

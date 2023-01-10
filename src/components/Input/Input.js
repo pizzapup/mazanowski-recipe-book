@@ -9,8 +9,8 @@ export default function Input({
   accept,
 }) {
   return (
-    <>
-      <label className={`input-comp ${className}`}>{label}</label>
+    <div className={`input-container ${className}`}>
+      <label>{label}</label>
       <input
         type={type}
         name={name}
@@ -18,7 +18,7 @@ export default function Input({
         onChange={onChange}
         accept={accept}
       />
-    </>
+    </div>
   );
 }
 export function InputGroup({ legend, children, className }) {

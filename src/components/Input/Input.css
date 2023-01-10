@@ -1,4 +1,10 @@
 input {
   min-width: 50px;
   min-height: 50px;
+  width: 80%;
+  border: 2px solid transparent;
+  outline: 2px solid transparent;
+}
+:root {
+  --accent-color: #6200ee;
 }
