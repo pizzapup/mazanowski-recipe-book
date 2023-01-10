@@ -1,3 +1,4 @@
+import { TextField } from "@mui/material";
 import { useState } from "react";
 import { parse } from "recipe-ingredient-parser-v3";
 import Input, { InputGroup } from "../Input/Input";
@@ -33,12 +34,15 @@ export default function Instructions({ getData }) {
     <div className="App">
       {inputList.map((x, i) => {
         return (
-          <div className="box">
-            <input
+          <div className="box" key={`instr-box-${i}`}>
+            <TextField
               name="instruction"
-              placeholder="instruction"
               value={x.instruction}
               onChange={(e) => handleInputChange(e, i)}
+              id="outlined-textarea"
+              label="instruction"
+              placeholder="preheat oven to 350"
+              multiline
             />
             <div>
               {inputList.length !== 1 && (
@@ -51,14 +55,14 @@ export default function Instructions({ getData }) {
           </div>
         );
       })}
-      <div>{JSON.stringify(inputList)}</div>
-      <div>
+      {/* <div>{JSON.stringify(inputList)}</div> */}
+      {/* <div>
         {inputList.map((item, idx) => (
           <>
-            <li key={`inst-${idx}`}>{item.instruction}</li>
+            <li key={`inst-list-${idx}`}>{item.instruction}</li>
           </>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
