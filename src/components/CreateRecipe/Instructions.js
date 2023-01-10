@@ -1,64 +1,64 @@
 import { useState } from "react";
+import { parse } from "recipe-ingredient-parser-v3";
 import Input, { InputGroup } from "../Input/Input";
 
 export const instructionSchema = {
-  text: "",
+  instruction: "",
 };
+
 export default function Instructions({ getData }) {
-  const [instructions, setInstructions] = useState([instructionSchema]);
-  const addInstruction = (e) => {
-    let newInstructions = instructions.concat(instructionSchema);
-    setInstructions(newInstructions);
-    getData(newInstructions);
+  const [inputList, setInputList] = useState([{ instruction: "" }]);
+
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index] = {
+      instruction: value,
+    };
+    setInputList(list);
+    getData(inputList);
   };
-  const removeInstruction = (e) => {
-    console.log(e.target.id);
-    let idx = parseInt(e.target.id.split("-")[2]);
-    console.log("Removing Instruction " + idx);
-    let newInstructions = instructions.filter(
-      (Instruction, index) => idx !== index
-    );
-    setInstructions(newInstructions);
-    getData(newInstructions);
+  const handleRemoveClick = (index) => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+    getData(inputList);
   };
-  const handleInstructionChange = (e) => {
-    let index = parseInt(e.target.id.split("-")[2]);
-    const newInstructions = instructions.map((Instruction, idx) => {
-      if (index !== idx) {
-        return Instruction;
-      }
-      return { ...Instruction, [e.target.name]: e.target.value };
-    });
-    setInstructions(newInstructions);
-    getData(newInstructions);
+  const handleAddClick = () => {
+    setInputList([...inputList, { instruction: "" }]);
+    getData(inputList);
   };
 
   return (
-    <InputGroup legend="instructions">
-      <ul>
-        {instructions.map((instruction, idx) => (
-          <li key={idx}>
-            <Input
-              type="text"
-              id={`instr-text-${idx}`}
-              value={instructions.product}
-              name="product"
-              label="product (Instruction name)"
-              onChange={handleInstructionChange}
+    <div className="App">
+      {inputList.map((x, i) => {
+        return (
+          <div className="box">
+            <input
+              name="instruction"
+              placeholder="instruction"
+              value={x.instruction}
+              onChange={(e) => handleInputChange(e, i)}
             />
-            <button
-              type="button"
-              id={`instr-remove-${idx}`}
-              onClick={removeInstruction}
-            >
-              remove
-            </button>
-          </li>
+            <div>
+              {inputList.length !== 1 && (
+                <button onClick={() => handleRemoveClick(i)}>Remove</button>
+              )}
+              {inputList.length - 1 === i && (
+                <button onClick={handleAddClick}>Add</button>
+              )}
+            </div>
+          </div>
+        );
+      })}
+      <div>{JSON.stringify(inputList)}</div>
+      <div>
+        {inputList.map((item, idx) => (
+          <>
+            <li key={`inst-${idx}`}>{item.instruction}</li>
+          </>
         ))}
-      </ul>
-      <button type="button" onClick={addInstruction}>
-        add Instruction
-      </button>
-    </InputGroup>
+      </div>
+    </div>
   );
 }

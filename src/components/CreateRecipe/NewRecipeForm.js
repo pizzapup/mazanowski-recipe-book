@@ -15,23 +15,18 @@ export default function NewRecipeForm() {
     category: "",
     image: defaultImgUrl,
     ingredients: [ingredientSchema],
-    instructions: [instructionSchema],
+    instructions: instructionSchema,
   };
   const [values, setValues] = useState(initialValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-  const getIngredients = (ings) => {
-    let newIngs = values.ingredients.concat(ingredientSchema);
-    setValues({ ...values, ingredients: values.ingredients.concat(newIngs) });
+  const getIngredients = (ingr) => {
+    setValues({ ...values, ingredients: ingr });
   };
   const getInstructions = (instr) => {
     setValues({ ...values, instructions: instr });
-  };
-  const getZesty = (ings) => {
-    let newIngs = values.ingredients.concat(ingredientSchema);
-    setValues({ ...values, ingredients: values.ingredients.concat(newIngs) });
   };
   const getImage = (url) => {
     setValues({ ...values, image: url });
@@ -39,7 +34,6 @@ export default function NewRecipeForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
-
     writeData(values, ["posts", `user-posts/${uids}`]);
   };
 
@@ -60,8 +54,7 @@ export default function NewRecipeForm() {
           label="category"
           onChange={handleInputChange}
         />
-        <ZestIngredients getData={getZesty} />
-
+        <ZestIngredients getData={getIngredients} />
         <Instructions getData={getInstructions} />
         <ImageInput getData={getImage} />
         <button type="submit">Submit</button>

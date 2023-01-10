@@ -10,6 +10,7 @@ export default function Ingredients({ getData }) {
   const [inputList, setInputList] = useState([
     { name: "", quantity: "", unit: "" },
   ]);
+
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
