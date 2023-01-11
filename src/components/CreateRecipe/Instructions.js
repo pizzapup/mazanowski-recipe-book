@@ -1,8 +1,12 @@
-import { TextField } from "@mui/material";
+import { FormGroup, TextField } from "@mui/material";
 import { useState } from "react";
-import { parse } from "recipe-ingredient-parser-v3";
 import Input, { InputGroup } from "../Input/Input";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTrash,
+  faCirclePlus,
+  faCircleMinus,
+} from "@fortawesome/free-solid-svg-icons";
 export const instructionSchema = {
   instruction: "",
 };
@@ -11,10 +15,9 @@ export default function Instructions({ getData }) {
   const [inputList, setInputList] = useState([{ instruction: "" }]);
 
   const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
     const list = [...inputList];
     list[index] = {
-      instruction: value,
+      instruction: e.target.value,
     };
     setInputList(list);
     getData(inputList);
@@ -31,38 +34,38 @@ export default function Instructions({ getData }) {
   };
 
   return (
-    <div className="App">
+    <InputGroup legend="instructions">
       {inputList.map((x, i) => {
         return (
-          <div className="box" key={`instr-box-${i}`}>
-            <TextField
-              name="instruction"
-              value={x.instruction}
-              onChange={(e) => handleInputChange(e, i)}
-              id="outlined-textarea"
-              label="instruction"
-              placeholder="preheat oven to 350"
-              multiline
-            />
-            <div>
+          <div key={`instr-box-${i}`}>
+            <li style={{ display: "flex" }}>
+              <Input
+                name="instruction"
+                value={x.instruction}
+                onChange={(e) => handleInputChange(e, i)}
+                // label={`${i} instruction`}
+                fullWidth
+                placeholder="preheat oven to 350"
+              />
               {inputList.length !== 1 && (
-                <button onClick={() => handleRemoveClick(i)}>Remove</button>
+                <button
+                  className="removeBtn"
+                  type="button"
+                  onClick={() => handleRemoveClick(i)}
+                >
+                  <FontAwesomeIcon icon={faCircleMinus} />
+                </button>
               )}
-              {inputList.length - 1 === i && (
-                <button onClick={handleAddClick}>Add</button>
-              )}
-            </div>
+            </li>
+            {inputList.length - 1 === i && (
+              <button className="addBtn" type="button" onClick={handleAddClick}>
+                Add another instruction
+                <FontAwesomeIcon icon={faCirclePlus} />
+              </button>
+            )}
           </div>
         );
       })}
-      {/* <div>{JSON.stringify(inputList)}</div> */}
-      {/* <div>
-        {inputList.map((item, idx) => (
-          <>
-            <li key={`inst-list-${idx}`}>{item.instruction}</li>
-          </>
-        ))}
-      </div> */}
-    </div>
+    </InputGroup>
   );
 }

@@ -46,14 +46,21 @@ export default function CategoryInput({ getData }) {
         if (typeof option === "string") {
           return option;
         }
+        // Add "xxx" option created dynamically
         if (option.inputValue) {
           return option.inputValue;
         }
+        // Regular option
         return option.title;
       }}
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
       freeSolo
-      renderInput={(params) => <TextField {...params} label="category" />}
+      renderInput={(params) => (
+        <div ref={params.InputProps.ref} className="input-container">
+          <label>category</label>
+          <input type="text" {...params.inputProps} />
+        </div>
+      )}
     />
   );
 }

@@ -1,39 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Instructions, { instructionSchema } from "./Instructions";
-import ImageInput, { defaultImgUrl } from "./ImageInput";
 import { writeData } from "../../firebase/dbHelpers";
-import ZestIngredients, { ingredientSchema, sendAxios } from "./ZestfulApi";
 import "./NewRecipeForm.css";
 import axios from "axios";
-import { TextField } from "@mui/material";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { storage } from "../../firebase/firebase-config";
+import Input, { TextArea } from "../Input/Input";
 import CategoryInput from "./CategoryInput";
+import { TextField } from "@mui/material";
 
 const uids = "default";
+const defaultImgUrl =
+  "gs://recipe-book-d5784.appspot.com/files/food-img-placeholder.jpg";
 
 export default function NewRecipeForm() {
   const initialValues = {
-    name: "",
-    category: "",
+    name: "default",
+    category: "uncategorized",
     image: defaultImgUrl,
     ingredients: [],
-    instructions: instructionSchema,
+    instructions: "",
+    notes: "",
   };
   const [ings, setIngs] = useState("");
-  const [file, setFile] = useState("");
+  const [imgFile, setImgFile] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
   const [values, setValues] = useState(initialValues);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-  function handleImageChange(e) {
-    setFile(e.target.files[0]);
-  }
   const getInstructions = (instr) => {
     setValues({ ...values, instructions: instr });
   };
-  const getImage = (url) => {
-    setValues({ ...values, image: url });
+  const getCategory = (cat) => {
+    setValues({ ...values, category: cat });
   };
   const ingParse = () => {
     const options = {
@@ -56,64 +62,74 @@ export default function NewRecipeForm() {
         console.error(error);
       });
   };
-  function handleUpload({ file }) {
-    const storageRef = ref(storage, `/recipe-imgs/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+
+  const handleUpload = (e) => {
+    const imgName =
+      values.name !== "default"
+        ? `/recipe-img/${values.name}-image`
+        : `/recipe-imgs/${imgFile.name}`;
+    const storageRef = ref(storage, imgName);
+    const uploadTask = uploadBytesResumable(storageRef, imgFile);
     uploadTask.on(
       "state_changed",
       (snapshot) => {},
-      (err) => console.log(err),
+      (error) => {
+        alert(error);
+      },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          console.log(url);
-          setValues({ ...values, image: url });
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setImgUrl(downloadURL);
+          setValues({ ...values, image: imgUrl });
         });
-        !file &&
-          setValues({
-            ...values,
-            image:
-              "gs://recipe-book-d5784.appspot.com/files/food-img-placeholder.jpg",
-          });
       }
     );
-  }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    handleUpload();
     ingParse();
     writeData(values, ["posts", `user-posts/${uids}`]);
   };
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-        <TextField
-          id="outlined-basic"
+        <Input
           value={values.name}
           name="name"
           label="name"
           onChange={handleInputChange}
-          variant="outlined"
         />
-        <TextField
-          id="outlined-basic"
-          value={values.category}
-          name="category"
-          label="category"
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
+        <CategoryInput getData={getCategory} />
+        <TextArea
           onChange={(e) => setIngs(e.target.value)}
           value={ings}
           name="ingredients"
-          id="outlined-textarea"
           label="ingredients"
           placeholder="3/4 cup diced tomato"
           helperText="example: 2 cups white flour, 1tsp salt, 2 cloves garlic minced, 1/2 cup chicken broth"
           multiline
         />
-        <Instructions getData={getInstructions} />
-
+        <TextArea
+          value={values.notes}
+          name="notes"
+          label="additional info/notes:"
+          onChange={handleInputChange}
+        />
+        <TextArea
+          value={values.instructions}
+          name="instructions"
+          label="instructions:"
+          onChange={handleInputChange}
+        />
+        <Input
+          type="file"
+          name="image"
+          accept="/image/*"
+          label="Upload image (optional)"
+          onChange={(e) => setImgFile(e.target.files[0])}
+          className="file-upload"
+        />
         <button type="submit">Submit</button>
       </form>
     </div>
