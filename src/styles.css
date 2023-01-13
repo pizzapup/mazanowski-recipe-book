@@ -1,10 +1,39 @@
 :root {
-  --default-font-fam: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  --default-font-fam: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  --link-color: blue;
+  --link-color-hover: hotpink;
+  --link-color-focus: green;
+  --link-color-active: purple;
+  --link-underline: underline solid thin;
+  --link-underline-hover: underline wavy thin;
+  --default-border: 2px solid transparent;
+  --input-border: 2px solid rgb(206, 204, 204);
+  --input-border-hover: 2px solid rgb(49, 49, 49);
+  --input-border-focus: 2px solid blue;
+  --input-bg: #ffffff;
+  --input-bg-hover: #fafafa;
+  --input-bg-dragAndDrop: #f8fafc;
+  --input-bg-focus: white;
+  --input-outline: 2px solid transparent;
+  --input-outline-hover: 2px dashed transparent;
+  --input-outline-focus: 2px dashed #fafafa;
+  --input-border-radius: 5px;
+  --colors-pasta-olivegreen: #89895f;
+  --colors-pasta-dark: #000202;
+  --colors-pasta-darkgreen: #4d481e;
+  --colors-pasta-livegreen: #c6c5a1;
+  --colors-pasta-green: #fcc940;
+  --colors-pasta-offwhite: #f0ece9;
+  --colors-pasta-redorange: #b8593c;
+}
+h2 {
+  text-align: center;
 }
 body {
   margin: 0;
+  padding-bottom: 10rem;
   font-family: var(--default-font-fam);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,11 +46,44 @@ body {
   clip: rect(1px, 1px, 1px, 1px) !important;
   -webkit-clip-path: inset(50%) !important;
   clip-path: inset(50%) !important;
-    height: 1px !important;
+  height: 1px !important;
   margin: -1px !important;
   overflow: hidden !important;
   padding: 0 !important;
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important;
+}
+a {
+  color: var(--link-color);
+}
+
+a:focus,
+a:focus-visible,
+a:focus-within {
+  color: var(--link-color-focus);
+}
+a:active {
+  color: var(--link-color-active);
+}
+a:hover {
+  color: var(--link-color-hover);
+}
+input,
+textarea,
+button {
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 15px 20px;
+}
+button:hover {
+  background-color: rgb(73, 73, 73);
 }

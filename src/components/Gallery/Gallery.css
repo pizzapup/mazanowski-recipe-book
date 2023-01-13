@@ -1,0 +1,54 @@
+.gallery {
+  /* background-color: aliceblue; */
+  --colors-pasta-olivegreen: #89895f;
+  --colors-pasta-dark: #000202;
+  --colors-pasta-darkgreen: #4d481e;
+  --colors-pasta-livegreen: #c6c5a1;
+  --colors-pasta-green: #fcc940;
+  --colors-pasta-offwhite: #f0ece9;
+  --colors-pasta-redorange: #b8593c;
+}
+.gallery {
+  width: 100%;
+  background-color: #f0ece9;
+}
+.gallery ul,
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+.gallery-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  background-color: #c6c5a1;
+  /* border: 1px solid #c6c5a1; */
+  border-radius: 5px;
+  /* box-shadow: #89895f 0px 0px 1px 1px; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.card > * {
+  flex: 1;
+}
+.card button {
+  margin: 1rem 10px;
+}
+.card button:hover {
+  background-color: #fcc940;
+  color: #000202;
+}
+
+.preview-img {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 200px;
+  background-color: rgba(99, 99, 99, 0.2);
+  border-radius: 3px;
+}

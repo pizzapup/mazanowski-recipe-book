@@ -40,6 +40,8 @@ export default function CategoryInput({ getData }) {
       selectOnFocus
       clearOnBlur
       handleHomeEndKeys
+      autoSelect
+      autoHighlight
       id="free-solo-with-text-demo"
       options={categories}
       getOptionLabel={(option) => {
@@ -71,7 +73,11 @@ export const categories = [
   { title: "lamb" },
   { title: "pork/ham" },
   { title: "fish" },
-  { title: "pasta and sauces" },
+  {
+    title: "pasta and sauces",
+    defaultImg:
+      "https://www.freepik.com/free-vector/pasta-types-sketch-set_9457418.htm#query=pasta&position=23&from_view=search&track=sph",
+  },
   { title: "cakes, pies, etc.", parentCategory: "dessert" },
   { title: "cookies and brownies", parentCategory: "dessert" },
   { title: "appetizers and dips" },

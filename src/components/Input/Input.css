@@ -1,10 +1,61 @@
-/* input {
-  min-width: 50px;
-  min-height: 50px;
-
-  border: 2px solid transparent;
-  outline: 2px solid transparent;
+form {
+  width: 90%;
+  max-width: 32rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
-:root {
-  --accent-color: #6200ee;
-} */
+input,
+textarea,
+button {
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  padding: 15px 20px;
+}
+button:hover {
+  background-color: rgb(73, 73, 73);
+}
+.input-container {
+  display: grid;
+  grid-template-columns: 10rem auto;
+}
+input,
+textarea {
+  outline-offset: 1px;
+  border: var(--input-border);
+  outline: var(--input-outline);
+  background: var(--input-bg);
+  border-radius: var(--input-border-radius);
+}
+input:hover,
+textarea:hover {
+  border: var(--input-border-hover);
+  outline: var(--input-outline-hover);
+  background: var(--input-bg-hover);
+}
+input:focus,
+input:focus-visible,
+input:focus-within,
+textarea:focus,
+textarea:focus-visible,
+textarea:focus-within {
+  border: var(--input-border-focus);
+  outline: var(--input-outline-focus);
+  background: var(--input-bg-focus);
+}
+fieldset {
+  border: 1px solid #dadbdc;
+  border-radius: var(--input-border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

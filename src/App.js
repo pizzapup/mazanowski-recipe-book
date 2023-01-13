@@ -1,82 +1,81 @@
-import { useState } from "react";
-import NewRecipeForm from "./components/CreateRecipe/NewRecipeForm";
 import "./styles.css";
-export default function App() {
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./routes/Layout";
+import { UserAuthContextProvider } from "./firebase/Auth/UserAuthContex";
+import Product from "./components/Gallery/Product";
+const Signup = lazy(() => import("./components/Auth/Signup"));
+const Login = lazy(() => import("./components/Auth/Login"));
+const NewRecipe = lazy(() => import("./routes/NewRecipePage"));
+const Home = lazy(() => import("./routes/Home"));
+const Gallery = lazy(() => import("./components/Gallery/Gallery"));
+export const pages = [
+  { to: "/home", title: "Home" },
+  { to: "/newrecipe", title: "Create New Recipe" },
+];
+
+function App() {
   return (
     <>
-      App <NewRecipeForm />
+      <UserAuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route
+              index
+              // path="home"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route
+              index
+              path="home"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route index path="recipe" element={<Gallery />} />
+            <Route index path="recipe/:id" element={<Product />} />
+            {/* <Route index path="recipe/detail" element={<Product />} /> */}
+            <Route
+              path="newrecipe"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <NewRecipe />
+                </Suspense>
+              }
+            />
+            <Route
+              path="signup"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <Signup />
+                </Suspense>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <Suspense fallback={<>...</>}>
+                  <Login />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <p> yikes - there's nothing at this url. try again ? </p>
+              }
+            />
+          </Route>
+        </Routes>
+      </UserAuthContextProvider>
     </>
   );
 }
-// function App() {
-//   const initialValues = {
-//     category: "",
-//     title: "",
-//     ingredients: [{ amount: "", unit: "", ingredient: "" }],
-//     instructions: [],
-//   };
-//   const [values, setValues] = useState(initialValues);
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setValues({ ...values, [name]: value });
-//   };
-//   return (
-//     <>
-//       <div>
-//         <form>
-//           <label>
-//             category
-//             <input
-//               type="text"
-//               name="category"
-//               value={values.category}
-//             />
-//           </label>
-//           <label>
-//             title
-//             <input
-//               type="text"
-//               name="title"
-//               value={values.title}
-//             />
-//           </label>
-//           <div>
-//             INGREDIENTS:{" "}
-//             <div>
-//               {" "}
-//               {values.ingredients && values.ingredients.length > 0 ? (
-//                 values.ingredients.map((friend, index) => (
-//                   <label key={index}>
-//                     <input name={`ingredients.${index}`} />
-//                     <button
-//                       type="button"
-//                       onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-//                     >
-//                       -
-//                     </button>
-//                     <button
-//                       type="button"
-//                       onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
-//                     >
-//                       +
-//                     </button>
-//                   </label>
-//                 ))
-//               ) : (
-//                 <button
-//                   type="button"
-//                   onClick={() => arrayHelpers.push("")}
-//                 >
-//                   {/* show this when user has removed all ingredients from the list */}
-//                   Add a friend
-//                 </button>
-//               )}
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     </>
-//   );
-// }
 
-// export default App;
+export default App;
