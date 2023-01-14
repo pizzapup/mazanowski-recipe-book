@@ -1,17 +1,5 @@
-import React from "react";
-
 import CarlishaW from "../../assets/profilepics/Placeholder2.png";
-import {
-  Container,
-  Col,
-  Row,
-  Card,
-  CardTitle,
-  CardText,
-  Button,
-  CardSubtitle,
-  CardBody,
-} from "reactstrap";
+import { Card, CardTitle, CardText, CardSubtitle, CardBody } from "reactstrap";
 import Github from "../../assets/icons/github.png";
 import LinkedIn from "../../assets/icons/linkedin.png";
 
@@ -62,9 +50,13 @@ const Carlisha = () => {
           >
             UX/UI, Design
           </CardSubtitle>
-          <details className="collapsible description" open>
-            <summary data-open="read more" data-close="read less"></summary>
-            <div>
+          <details className="description" open>
+            <summary
+              className="details"
+              data-open="read less"
+              data-closed="read more"
+            ></summary>
+            <div className="content">
               <div className="content">
                 <CardText className="mb-3">
                   Carlisha is a Digital Artist studying to be a UX Researcher.
@@ -75,7 +67,7 @@ const Carlisha = () => {
               </div>
             </div>
           </details>
-          <a href="http://linkedin.com/in/carlishawilson">
+          <a href="http://linkedin.com/">
             <img
               src={LinkedIn}
               alt="LinkedIn"
