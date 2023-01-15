@@ -25,8 +25,8 @@ button:hover {
   background-color: rgb(73, 73, 73);
 }
 .input-container {
-  display: grid;
-  grid-template-columns: 10rem auto;
+  /* display: grid;
+  grid-template-columns: 10rem auto; */
   display: inline-flex;
   flex-direction: column;
 }

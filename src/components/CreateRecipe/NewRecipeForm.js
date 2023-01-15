@@ -5,10 +5,11 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase/firebase-config";
 import Input, { TextArea } from "../Input/Input";
 import CategoryInput from "./CategoryInput";
-import DragAndDrop from "./DragAndDrop";
+import DragAndDrop, { ImageUploadMobile } from "./DragAndDrop";
 import { auth } from "../../firebase/firebase-config";
 import "./CreateRecipe.css";
 import TagsInput from "./TagsInput";
+import { Button } from "@mui/material";
 
 const user = auth.currentUser;
 console.log(auth.currentUser);
@@ -23,7 +24,7 @@ export default function NewRecipeForm() {
     image: defaultImgUrl,
     ingredients: [],
     instructions: "",
-    preheat: "",
+    // preheat: "",
     notes: "",
     username: user !== null ? user.displayName : "default",
   };
@@ -101,6 +102,7 @@ export default function NewRecipeForm() {
         <div className="img" style={{ "--backgroundImage": `url(${imgUrl})` }}>
           <DragAndDrop handleUpload={handleUpload} />
         </div>
+        <ImageUploadMobile handleUpload={handleUpload} />
         <Input
           value={values.name}
           name="name"
@@ -108,7 +110,6 @@ export default function NewRecipeForm() {
           type="text"
           onChange={handleInputChange}
         />
-        <TagsInput getData={getTags} />
         <CategoryInput getData={getCategory} />
         <TextArea
           onChange={handleInputChange}
@@ -125,13 +126,7 @@ export default function NewRecipeForm() {
           label="instructions:"
           onChange={handleInputChange}
         />
-        <Input
-          value={values.preheat}
-          name="preheat"
-          type="text"
-          label="preheat"
-          onChange={handleInputChange}
-        />
+        <TagsInput getData={getTags} />
         <TextArea
           value={values.notes}
           name="notes"
@@ -140,9 +135,9 @@ export default function NewRecipeForm() {
           className="additional-notes"
         />
         <button type="submit">Submit</button>
-        <div>
+        <div className="submitted-by">
           recipe submitted by:
-          {user !== null ? user.displayName : "default"}
+          <span> {user !== null ? user.displayName : " default-user"}</span>
         </div>
       </form>
     </div>

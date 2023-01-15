@@ -1,4 +1,7 @@
+import { Photo, PhotoCamera } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { useRef, useState } from "react";
+import { Label } from "reactstrap";
 
 export default function DragAndDrop({ handleUpload }) {
   const [dragActive, setDragActive] = useState(false);
@@ -59,6 +62,7 @@ export default function DragAndDrop({ handleUpload }) {
             type="button"
             onClick={onButtonClick}
           >
+            <PhotoCamera />
             Click to upload from your files
           </button>
         </div>
@@ -83,3 +87,12 @@ export default function DragAndDrop({ handleUpload }) {
     </div>
   );
 }
+export const ImageUploadMobile = ({ handleUpload }) => {
+  return (
+    <label className="file-upload">
+      Upload an image (optional)
+      <input hidden accept="image/*" type="file" onChange={handleUpload} />
+      <PhotoCamera />
+    </label>
+  );
+};

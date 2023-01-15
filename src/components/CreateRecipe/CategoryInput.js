@@ -1,5 +1,4 @@
 import * as React from "react";
-import TextField from "@mui/material/TextField";
 import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 const filter = createFilterOptions();
 
@@ -58,7 +57,10 @@ export default function CategoryInput({ getData }) {
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
       freeSolo
       renderInput={(params) => (
-        <div ref={params.InputProps.ref} className="input-container">
+        <div
+          ref={params.InputProps.ref}
+          className="input-container muiAutocomplete-input-container"
+        >
           <label>category</label>
           <input type="text" {...params.inputProps} />
         </div>
