@@ -1,5 +1,3 @@
-import { PeopleCards } from "../PeopleCards/PeopleCards";
-
 export const AboutTheProject = () => {
   return (
     <div className="about-the-project-content">

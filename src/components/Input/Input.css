@@ -27,6 +27,8 @@ button:hover {
 .input-container {
   display: grid;
   grid-template-columns: 10rem auto;
+  display: inline-flex;
+  flex-direction: column;
 }
 input,
 textarea {

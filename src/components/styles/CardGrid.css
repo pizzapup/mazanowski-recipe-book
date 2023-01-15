@@ -1,7 +1,7 @@
 .card-grid {
   background-color: pink;
   display: grid;
-
+  max-width: 100vw;
   grid-template-columns: repeat(auto-fill, minmax(17rem, 19rem));
   gap: 8px;
   justify-items: center;

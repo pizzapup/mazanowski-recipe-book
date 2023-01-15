@@ -8,15 +8,13 @@ import CategoryInput from "./CategoryInput";
 import DragAndDrop from "./DragAndDrop";
 import { auth } from "../../firebase/firebase-config";
 import "./CreateRecipe.css";
-import TagsInput from "./TagsInput";
-
 const user = auth.currentUser;
 console.log(auth.currentUser);
 const uids = user !== null ? user.displayName : "default";
 const defaultImgUrl =
   "https://firebasestorage.googleapis.com/v0/b/recipe-book-d5784.appspot.com/o/recipe-imgs%2Fplaceholders?alt=media&token=683d1a06-95af-446e-9b53-dfd863b255fb";
 
-export default function NewRecipeForm() {
+export default function RecipeDataEntry() {
   const initialValues = {
     name: "",
     category: { title: "appetizers and dips" },
@@ -30,17 +28,13 @@ export default function NewRecipeForm() {
 
   const [imgUrl, setImgUrl] = useState(defaultImgUrl);
   const [values, setValues] = useState(initialValues);
-  const [zestyIngredients, setZestyIngredients] = useState();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
   const getCategory = (cat) => {
     setValues({ ...values, category: cat });
-  };
-  const getTags = (tags) => {
-    setValues({ ...values, tags: tags });
-    console.log(tags);
   };
 
   const handleUpload = (e) => {
@@ -88,7 +82,7 @@ export default function NewRecipeForm() {
       .request(options)
       .then(function (response) {
         console.log("without", response.data.results);
-        setZestyIngredients(response.data.results);
+
         sendToDb(response.data.results);
       })
       .catch(function (error) {
@@ -108,7 +102,7 @@ export default function NewRecipeForm() {
           type="text"
           onChange={handleInputChange}
         />
-        <TagsInput getData={getTags} />
+
         <CategoryInput getData={getCategory} />
         <TextArea
           onChange={handleInputChange}
@@ -132,6 +126,13 @@ export default function NewRecipeForm() {
           label="preheat"
           onChange={handleInputChange}
         />
+        <Input
+          value={values.preheat}
+          name="preheat"
+          type="text"
+          label="preheat"
+          onChange={handleInputChange}
+        />
         <TextArea
           value={values.notes}
           name="notes"
@@ -139,6 +140,7 @@ export default function NewRecipeForm() {
           onChange={handleInputChange}
           className="additional-notes"
         />
+
         <button type="submit">Submit</button>
         <div>
           recipe submitted by:

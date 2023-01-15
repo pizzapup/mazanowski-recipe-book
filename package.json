@@ -31,6 +31,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
     "react-toastify": "^9.1.1",
     "reactstrap": "^9.1.5",
     "recipe-ingredient-parser-v3": "^1.2.18",
