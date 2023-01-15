@@ -7,6 +7,7 @@ import Input, { TextArea } from "../Input/Input";
 import CategoryInput from "./CategoryInput";
 import DragAndDrop from "./DragAndDrop";
 import { auth } from "../../firebase/firebase-config";
+import "./CreateRecipe.css";
 const user = auth.currentUser;
 console.log(auth.currentUser);
 const uids = user !== null ? user.displayName : "default";
@@ -91,35 +92,33 @@ export default function NewRecipeForm() {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
-        <div className="img" style={{ backgroundImage: `url(${imgUrl})` }}>
+        <div className="img" style={{ "--backgroundImage": `url(${imgUrl})` }}>
           <DragAndDrop handleUpload={handleUpload} />
         </div>
-        <fieldset>
-          <legend>recipe details:</legend>
-          <Input
-            value={values.name}
-            name="name"
-            label="name"
-            type="text"
-            onChange={handleInputChange}
-          />
-          <CategoryInput getData={getCategory} />
-          <TextArea
-            onChange={handleInputChange}
-            value={values.ingredients}
-            name="ingredients"
-            label="ingredients"
-            placeholder="3/4 cup diced tomato"
-            helperText="example: 2 cups white flour, 1tsp salt, 2 cloves garlic minced, 1/2 cup chicken broth"
-            multiline
-          />
-          <TextArea
-            value={values.instructions}
-            name="instructions"
-            label="instructions:"
-            onChange={handleInputChange}
-          />
-        </fieldset>
+        <Input
+          value={values.name}
+          name="name"
+          label="name"
+          type="text"
+          onChange={handleInputChange}
+        />
+
+        <CategoryInput getData={getCategory} />
+        <TextArea
+          onChange={handleInputChange}
+          value={values.ingredients}
+          name="ingredients"
+          label="ingredients"
+          placeholder="3/4 cup diced tomato"
+          helperText="example: 2 cups white flour, 1tsp salt, 2 cloves garlic minced, 1/2 cup chicken broth"
+          multiline
+        />
+        <TextArea
+          value={values.instructions}
+          name="instructions"
+          label="instructions:"
+          onChange={handleInputChange}
+        />
         <Input
           value={values.preheat}
           name="preheat"
@@ -134,11 +133,12 @@ export default function NewRecipeForm() {
           onChange={handleInputChange}
           className="additional-notes"
         />
+
+        <button type="submit">Submit</button>
         <div>
           recipe submitted by:
           {user !== null ? user.displayName : "default"}
         </div>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

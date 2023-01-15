@@ -17,6 +17,7 @@ import { db } from "../firebase/firebase-config";
 const SavedRecipesPage = () => {
   const navigate = useNavigate();
   const [recipeDbList, setRecipeDbList] = useState();
+
   useEffect(() => {
     const dbRef = ref(db, `posts/`);
     onValue(dbRef, (snapshot) => {
@@ -24,7 +25,6 @@ const SavedRecipesPage = () => {
       const resList = [];
       for (let id in res) {
         resList.push({ id, ...res[id] });
-
         console.log("test1", { id, ...res[id] });
       }
       setRecipeDbList(resList);
@@ -93,16 +93,6 @@ const SavedRecipesPage = () => {
           recipeDbList.map((data) => {
             return <SavedRecipesListCard data={data} />;
           })}
-        {/* {recipeDbList.map((data, idx) => {
-          return (
-            <SavedRecipesListCard
-              data={data}
-              postKey={data.id}
-             
-              idx={idx}
-            />
-          );
-        })} */}
       </CardGrid>
       <h2 className="text-center">Your Collections</h2>
 
