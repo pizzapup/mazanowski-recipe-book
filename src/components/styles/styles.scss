@@ -1,0 +1,16 @@
+@import './Button';
+@import './About';
+@import './Card';
+@import './CardGrid';
+@import './Nav';
+@import './Product';
+@import './PeopleCards';
+@import './Login';
+.flex {
+  display: flex;
+  justify-content: space-evenly;
+}
+.card {
+  padding: 15px;
+  border-radius: 5px;
+}

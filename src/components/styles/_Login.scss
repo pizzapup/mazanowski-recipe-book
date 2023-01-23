@@ -1,0 +1,35 @@
+@import './mixins';
+.auth-form {
+  button {
+    margin: 2em 0px;
+  }
+  .auth-form-alt-options div {
+    text-align: left;
+    display: flex;
+    gap: 1em;
+    align-items: baseline;
+  }
+  .sign-in-as-guest {
+    background-color: inherit;
+    color: var(--link-color);
+    text-decoration: underline blue;
+    padding: 0;
+    margin: 5px 0px;
+    white-space: nowrap;
+    display: flex;
+    text-align: left;
+    @include Focus {
+      background-color: inherit;
+      color: var(--link-color-hover);
+      text-decoration: underline blue wavy 1px;
+      text-decoration: underline blue wavy 1px;
+      text-underline-offset: 1px;
+    }
+    &:hover {
+      background-color: inherit;
+      color: var(--link-color-hover);
+      text-decoration: underline blue wavy 1px;
+      text-underline-offset: 1px;
+    }
+  }
+}

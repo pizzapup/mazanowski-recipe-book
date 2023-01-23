@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Container, Col, Button, Row, CardBody, Card } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { flushSync } from "react-dom";
 import veggiedip from "../assets/imgs/veggiedip.jpg";
 import bowl from "../assets/imgs/bowl.jpg";
 import bowl2 from "../assets/imgs/bowl2.jpg";
 import breakfast from "../assets/imgs/breakfast.jpg";
-import eggplant from "../assets/imgs/eggplant.jpg";
 import eggtoast from "../assets/imgs/eggtoast.jpg";
-import meat from "../assets/imgs/meat.jpg";
-import noodles from "../assets/imgs/noodles.jpg";
 import pasta from "../assets/imgs/pasta.jpg";
-import pasta2 from "../assets/imgs/pasta2.jpg";
 import pie from "../assets/imgs/pie.jpg";
-import soup from "../assets/imgs/soup.jpg";
-import steak from "../assets/imgs/steak.jpg";
-import tacoscheese from "../assets/imgs/tacoscheese.jpg";
 import toast from "../assets/imgs/toast.jpg";
-
+import TextField from "@mui/material/TextField";
+import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
+const filter = createFilterOptions();
 const LandingPage = (props) => {
+  const [value, setValue] = React.useState(null);
   const navigate = useNavigate();
 
   const [dietType, setDietType] = useState("");
   const [foodIntolerances, setIntolerances] = useState([]);
-
   const [cardOneSelected, setCardOneSelected] = useState(false);
   const [cardTwoSelected, setCardTwoSelected] = useState(false);
   const [cardThreeSelected, setCardThreeSelected] = useState(false);
@@ -32,7 +25,7 @@ const LandingPage = (props) => {
   const [cardSixSelected, setCardSixSelected] = useState(false);
   const [cardSevenSelected, setCardSevenSelected] = useState(false);
   const [cardEightSelected, setCardEightSelected] = useState(false);
-
+  const [values, setValues] = useState();
   console.log(dietType);
   console.log(foodIntolerances);
 
@@ -55,7 +48,9 @@ const LandingPage = (props) => {
       setDietType("");
     }
   };
-
+  const clickHandlerIntolerances = (e) => {
+    //
+  };
   const clickHandlerCardThree = (e) => {
     setCardThreeSelected(true);
     setIntolerances((intolerance) => [...intolerance, "seafood"]);
@@ -103,60 +98,85 @@ const LandingPage = (props) => {
     props.func2(dietType);
     navigate("/recipes");
   };
-
+  const dietaryRestrictions = [
+    { title: "vegetarian", type: "diet" },
+    { title: "vegan", type: "diet" },
+    { title: "gluten", type: "allergy/intolerance" },
+    { title: "shellfish", type: "allergy/intolerance" },
+    { title: "peanut", type: "allergy/intolerance" },
+    { title: "soy", type: "allergy/intolerance" },
+    { title: "eggs", type: "allergy/intolerance" },
+  ];
   return (
     <>
-      <Container>
-        <Row>
-          <Col className="d-flex flex-column align-items-center justify-content-center">
-            <Row
-              className="text-center"
-              style={{
-                fontFamily: "Vibur, cursive",
-              }}
-            >
-              <Col>
+      <Autocomplete
+        multiple
+        options={dietaryRestrictions}
+        onChange={(event, newValue) => {
+          if (typeof newValue === "string") {
+            setValue({
+              title: newValue,
+            });
+          } else if (newValue && newValue.inputValue) {
+            // Create a new value from the user input
+            setValue({
+              title: newValue.inputValue,
+            });
+          } else {
+            setValue(newValue);
+          }
+          console.log(value);
+        }}
+        filterOptions={(options, params) => {
+          const filtered = filter(options, params);
+
+          const { inputValue } = params;
+          // Suggest the creation of a new value
+          const isExisting = options.some(
+            (option) => inputValue === option.title
+          );
+          if (inputValue !== "" && !isExisting) {
+            filtered.push({
+              inputValue,
+              title: `Add "${inputValue}"`,
+            });
+          }
+
+          return filtered;
+        }}
+        // getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) => {
+          // Value selected with enter, right from the input
+          if (typeof option === "string") {
+            return option;
+          }
+          // Add "xxx" option created dynamically
+          if (option.inputValue) {
+            return option.inputValue;
+          }
+          // Regular option
+          return option.title;
+        }}
+        freeSolo
+        disableCloseOnSelect
+        renderInput={(params) => (
+          <TextField {...params} variant="standard" label="tags" />
+        )}
+      />
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>
                 <h2>Search Recipes by Diet</h2>
-                <p
-                  style={{
-                    color: "#70BA89",
-                  }}
-                >
-                  SELECT ONE OR NONE
-                </p>
-              </Col>
-            </Row>
-            <Row xs="2" className="mb-3">
-              <Col>
-                <Card
-                  className="text-white"
-                  onClick={() => clickHandlerCardOne()}
-                  style={{
-                    maxWidth: "18rem",
-                    border: "1rem solid #70BA89",
-                    backgroundColor: "#70BA89",
-                    fontFamily: "Vibur, cursive",
-                  }}
-                >
-                  <div
-                    style={{
-                      maxWidth: "256px",
-                      height: "256px",
-                      position: "relative",
-                      overflow: "hidden",
-                      borderRadius: "0.5rem",
-                    }}
-                  >
+                <p>SELECT ONE OR NONE</p>
+
+                <div onClick={() => clickHandlerCardOne()}>
+                  <div>
                     <img
                       className={cardOneSelected ? "opacity-25" : ""}
                       src={veggiedip}
                       alt="Food Picture"
-                      style={{
-                        display: "inline",
-                        margin: "0 auto",
-                        height: "100%",
-                        maxWidth: "auto",
-                      }}
                     />
                   </div>
                   <h3
@@ -168,38 +188,17 @@ const LandingPage = (props) => {
                   >
                     VEGETARIAN
                   </h3>
-                </Card>
-              </Col>
-              <Col>
-                <Card
+                </div>
+
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardTwo()}
-                  style={{
-                    maxWidth: "18rem",
-                    border: "1rem solid #70BA89",
-                    backgroundColor: "#70BA89",
-                    fontFamily: "Vibur, cursive",
-                  }}
                 >
-                  <div
-                    style={{
-                      maxWidth: "256px",
-                      height: "256px",
-                      position: "relative",
-                      overflow: "hidden",
-                      borderRadius: "0.5rem",
-                    }}
-                  >
+                  <div>
                     <img
                       className={cardTwoSelected ? "opacity-25" : ""}
                       src={toast}
                       alt="Food Picture"
-                      style={{
-                        display: "inline",
-                        margin: "0 auto",
-                        height: "100%",
-                        maxWidth: "auto",
-                      }}
                     />
                   </div>
                   <h3
@@ -211,16 +210,16 @@ const LandingPage = (props) => {
                   >
                     VEGAN
                   </h3>
-                </Card>
-              </Col>
-            </Row>
-            <Row
+                </div>
+              </div>
+            </div>
+            <div
               className="text-center"
               style={{
                 fontFamily: "Vibur, cursive",
               }}
             >
-              <Col>
+              <div>
                 <h2 className="mt-3">Search Recipes by Intolerances</h2>
                 <p
                   style={{
@@ -229,12 +228,12 @@ const LandingPage = (props) => {
                 >
                   SELECT UP TO SIX
                 </p>
-              </Col>
-            </Row>
-            <Row xs="2" className="mb-3">
-              <Col>
+              </div>
+            </div>
+            <div xs="2" className="mb-3">
+              <div>
                 {/* Card 3 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardThree()}
                   style={{
@@ -274,11 +273,11 @@ const LandingPage = (props) => {
                   >
                     SEAFOOD
                   </h3>
-                </Card>
-              </Col>
-              <Col>
+                </div>
+              </div>
+              <div>
                 {/*Card 4 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardFour()}
                   style={{
@@ -319,13 +318,13 @@ const LandingPage = (props) => {
                   >
                     GLUTEN
                   </h3>
-                </Card>
-              </Col>
-            </Row>
-            <Row xs="2" className="mb-3">
-              <Col>
+                </div>
+              </div>
+            </div>
+            <div xs="2" className="mb-3">
+              <div>
                 {/* Card 5 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardFive()}
                   style={{
@@ -365,11 +364,11 @@ const LandingPage = (props) => {
                   >
                     TREE NUTS
                   </h3>
-                </Card>
-              </Col>
-              <Col>
+                </div>
+              </div>
+              <div>
                 {/*Card 6 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardSix()}
                   style={{
@@ -409,13 +408,13 @@ const LandingPage = (props) => {
                   >
                     SHELLFISH
                   </h3>
-                </Card>
-              </Col>
-            </Row>
-            <Row xs="2" className="mb-3">
-              <Col>
+                </div>
+              </div>
+            </div>
+            <div xs="2" className="mb-3">
+              <div>
                 {/* Card 7 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardSeven()}
                   style={{
@@ -455,11 +454,11 @@ const LandingPage = (props) => {
                   >
                     DAIRY
                   </h3>
-                </Card>
-              </Col>
-              <Col>
+                </div>
+              </div>
+              <div>
                 {/*Card 8 */}
-                <Card
+                <div
                   className="text-white"
                   onClick={() => clickHandlerCardEight()}
                   style={{
@@ -499,12 +498,12 @@ const LandingPage = (props) => {
                   >
                     SOY
                   </h3>
-                </Card>
-              </Col>
-            </Row>
+                </div>
+              </div>
+            </div>
 
-            <Row>
-              <Col className="text-center">
+            <div>
+              <div className="text-center">
                 <button
                   style={{
                     backgroundColor: "#70BA89",
@@ -526,13 +525,40 @@ const LandingPage = (props) => {
                 >
                   SUBMIT
                 </button>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 
 export default LandingPage;
+export const categories = [
+  { title: "poultry" },
+  { title: "beef" },
+  { title: "lamb" },
+  { title: "pork/ham" },
+  { title: "fish" },
+  {
+    title: "pasta and sauces",
+    defaultImg:
+      "https://www.freepik.com/free-vector/pasta-types-sketch-set_9457418.htm#query=pasta&position=23&from_view=search&track=sph",
+  },
+  { title: "cakes, pies, etc.", parentCategory: "dessert" },
+  { title: "cookies and brownies", parentCategory: "dessert" },
+  { title: "appetizers and dips" },
+  { title: "salads,dressings and condiments" },
+  { title: "breakfast foods" },
+  { title: "pizza, etc" },
+  { title: "vegetarian" },
+  { title: "vegetables and side dishes" },
+  {
+    title: "coffee cakes, morning rolls, and buns",
+    parentCategory: "dessert",
+  },
+  { title: "sweet breads", parentCategory: "dessert" },
+  { title: "candy", parentCategory: "dessert" },
+  { title: "beverages" },
+];

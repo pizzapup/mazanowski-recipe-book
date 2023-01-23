@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useUserAuth } from "../../firebase/Auth/UserAuthContex";
 
 import Input from "../Input/Input";
-import "./Auth.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -45,7 +44,10 @@ const LoginForm = () => {
         </button>
         <div className="auth-form-alt-options">
           <div>
-            Need an account? <Link to="/register">Create an account</Link>
+            Need an account?{" "}
+            <Link to="/register" className="sign-in-as-guest">
+              Create an account
+            </Link>
           </div>
 
           <div>

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase/firebase-config";
 import { onValue, ref } from "firebase/database";
 
-const SavedRecipesDetail = () => {
+const RecipeDetail = () => {
   const { id } = useParams();
   const dbRef = ref(db, `posts/`);
   const [ingredientsArray, setIngredientsArray] = useState();
@@ -82,4 +81,4 @@ const SavedRecipesDetail = () => {
     </>
   );
 };
-export default SavedRecipesDetail;
+export default RecipeDetail;

@@ -1,0 +1,46 @@
+@mixin FlexMix($j: space-evenly, $a: center, $g: 0px, $d: row) {
+  display: flex;
+  align-items: $a;
+  justify-content: $j;
+  gap: $g;
+  flex-direction: $d;
+}
+
+@mixin Under450 {
+  @media only screen and (max-width: 450px) {
+    @content;
+  }
+}
+@mixin Under650 {
+  @media only screen and (max-width: 650px) {
+    @content;
+  }
+}
+@mixin ScreenSize($size) {
+  @media only screen and (max-width: $size) {
+    @content;
+  }
+}
+@mixin Over650 {
+  @media only screen and (min-width: 650px) {
+    @content;
+  }
+}
+@mixin Over800 {
+  @media only screen and (min-width: 800px) {
+    @content;
+  }
+}
+@mixin Over950 {
+  @media only screen and (min-width: 950px) {
+    @content;
+  }
+}
+
+@mixin Focus {
+  &:focus,
+  &:focus-visible,
+  &:focus-within {
+    @content;
+  }
+}

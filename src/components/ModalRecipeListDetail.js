@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import {
   Container,
@@ -12,8 +12,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
-} from 'reactstrap';
+  ModalFooter,
+} from "reactstrap";
 
 const ModalRecipeListDetail = (props) => {
   const [modal, setModal] = useState(false);
@@ -24,14 +24,13 @@ const ModalRecipeListDetail = (props) => {
       <Button onClick={toggle}>View Recipe</Button>
 
       <Modal isOpen={modal} toggle={toggle} fullscreen>
-        
         <ModalHeader toggle={toggle}>{props.detail.title}</ModalHeader>
         <img
           className="align-self-center"
           alt={props.detail.title}
           src={props.detail.image}
           style={{
-            width: '25rem'
+            width: "25rem",
           }}
         />
         <ModalBody>
@@ -41,21 +40,21 @@ const ModalRecipeListDetail = (props) => {
           aliquip ex ea commodo consequat. Duis aute irure dolor in
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+          dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+          adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
         </ModalBody>
         <ModalFooter>
-  
           <Button color="primary" onClick={toggle}>
             Add to Collection
           </Button>
-  
         </ModalFooter>
       </Modal>
     </div>

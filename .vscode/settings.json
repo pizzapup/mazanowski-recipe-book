@@ -5,7 +5,28 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        ".firebase": true,
+        ".github/workflows": true,
+        ".netlify": true,
+        ".vscode": true,
+        "build": true,
+        ".env": true,
+        ".gitignore": true,
+        "src/routes": true,
+        ".github": true,
+        "node_modules": true
     },
-    "hide-files.files": []
+    "hide-files.files": [
+        ".firebase",
+        ".github/workflows",
+        ".netlify",
+        ".vscode",
+        "build",
+        ".env",
+        ".gitignore",
+        "src/routes",
+        ".github",
+        "node_modules"
+    ]
 }

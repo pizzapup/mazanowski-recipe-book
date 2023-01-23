@@ -1,0 +1,37 @@
+@import './mixins';
+@import './Card';
+.people-cards {
+  @include FlexMix($g: 1rem);
+  flex-wrap: wrap;
+}
+
+.people-card {
+  @extend %card;
+  max-width: 450px;
+  background-color: rgb(67, 146, 124);
+  border-radius: 20px;
+  padding: 15px;
+  @include FlexMix($d: column, $g: 10px);
+
+  &:nth-child(even) {
+    background-color: rgb(252, 193, 46);
+  }
+  .people-card-text {
+    background-color: #fafafa;
+    border-radius: 5px;
+    padding: 5px;
+  }
+  h4 {
+    @include FlexMix($j: flex-start, $a: baseline, $g: 15px);
+  }
+  h4 span:nth-child(1) {
+    font-size: larger;
+    text-transform: capitalize;
+  }
+  @include Under450 {
+    flex-direction: row;
+    img {
+      width: 100px;
+    }
+  }
+}

@@ -3,9 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { Container, Col, Row, Card, CardTitle } from "reactstrap";
 import { useUserAuth } from "../../firebase/Auth/UserAuthContex";
 import Input from "../Input/Input";
-import "./Auth.css";
+
 // import PastaImg from "../assets/imgs/pasta.jpg";
-import BtnStyles from "../styles/Button.css";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
@@ -50,7 +49,9 @@ const RegisterForm = () => {
         <div className="auth-form-alt-options">
           <div>
             Already have an account?
-            <Link to="/login">Log-in to your account</Link>
+            <Link className="sign-in-as-guest" to="/login">
+              Log-in to your account
+            </Link>
           </div>
 
           <div>

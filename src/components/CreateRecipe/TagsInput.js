@@ -17,6 +17,7 @@ const filter = createFilterOptions();
 
 export default function Tags() {
   const [value, setValue] = useState(null);
+  console.log(value);
 
   return (
     <>
@@ -36,6 +37,7 @@ export default function Tags() {
           } else {
             setValue(newValue);
           }
+          console.log(value);
         }}
         filterOptions={(options, params) => {
           const filtered = filter(options, params);
@@ -73,9 +75,6 @@ export default function Tags() {
           <TextField {...params} variant="standard" label="tags" />
         )}
       />
-      {value.map((v) => (
-        <Chip key={v.title} label={v.title} />
-      ))}
     </>
   );
 }

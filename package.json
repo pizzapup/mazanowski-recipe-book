@@ -38,6 +38,7 @@
     "react-widgets": "^5.8.4",
     "reactstrap": "^9.1.5",
     "recipe-ingredient-parser-v3": "^1.2.18",
+    "sass": "^1.57.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

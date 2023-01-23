@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../firebase/Auth/UserAuthContex";
 import Input from "../Input/Input";
-import "./Auth.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");

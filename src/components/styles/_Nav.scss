@@ -1,0 +1,40 @@
+@import './mixins';
+.navbar {
+  display: flex;
+
+  align-items: baseline;
+  .navbrand {
+    grid-area: navbrand;
+    flex: 2;
+  }
+
+  .nav {
+    align-items: baseline;
+    grid-area: navbar;
+    flex: 1;
+
+    display: flex;
+    justify-content: space-between;
+    .navlink {
+      text-decoration: none;
+      @include Focus {
+        color: var(--link-color-hover);
+        text-decoration: underline blue wavy 1px;
+        text-decoration: underline blue wavy 1px;
+        text-underline-offset: 1px;
+      }
+
+      &:hover {
+        color: var(--link-color-hover);
+        text-decoration: underline blue wavy 1px;
+        text-underline-offset: 1px;
+      }
+    }
+    .navlink--active {
+      text-decoration: underline;
+    }
+    @include ScreenSize(850px) {
+      gap: 10px;
+    }
+  }
+}

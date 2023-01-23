@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { pages } from "../../App";
 import { NavAuth } from "./NavAuth";
-import "./Nav.css";
 
 export function Nav() {
   return (

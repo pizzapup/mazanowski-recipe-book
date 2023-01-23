@@ -1,4 +1,3 @@
-import "./styles/CardGrid.css";
 export const CardGrid = ({ children }) => {
   return (
     <>

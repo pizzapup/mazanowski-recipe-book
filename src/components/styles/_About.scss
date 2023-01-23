@@ -1,0 +1,80 @@
+@import './mixins';
+@import './Card';
+.about-page {
+  @include FlexMix($d: column, $j: center, $a: center, $g: 2rem);
+  margin: 0 auto;
+
+  .img {
+    width: 70vw;
+    height: 40vh;
+    max-width: 40rem;
+    border-radius: 15px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  h3 {
+    text-align: center;
+  }
+  p {
+    max-width: 80ch;
+  }
+  .about-technologies {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 15px;
+    grid-auto-rows: 1fr;
+    li {
+      @extend %card;
+      @include FlexMix($d: column, $j: space-between, $a: flex-start);
+
+      background-color: #fafafa;
+      padding: 15px;
+      border-radius: 5px;
+      .about-tools-logo {
+        height: 90px;
+        @include FlexMix;
+      }
+      img {
+        max-height: 80%;
+        width: auto;
+        max-width: 80%;
+        margin: 0 auto;
+        padding: 10px;
+      }
+      h4 {
+        margin: 15px auto;
+        text-align: center;
+      }
+      .about-mui {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+  .about-coming-soon {
+    ul {
+      list-style-type: none;
+      .MuiSvgIcon-root {
+        color: rgb(67, 146, 124);
+      }
+
+      li {
+        margin: 10px;
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+    .about-coming-soon-style {
+      margin: 10px;
+      display: flex;
+      gap: 0.5rem;
+      .MuiSvgIcon-root {
+        color: #1d82c1;
+      }
+    }
+  }
+}

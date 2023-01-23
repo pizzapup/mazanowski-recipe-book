@@ -25,11 +25,7 @@ export const NavAuth = () => {
           Login
         </NavLink>
       ) : (
-        <button
-          variant="primary"
-          onClick={handleLogout}
-          className="nav-logout-btn"
-        >
+        <button onClick={handleLogout} className="nav-logout-btn">
           Log out
         </button>
       )}

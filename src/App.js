@@ -1,9 +1,8 @@
 import { UserAuthContextProvider } from "./firebase/Auth/UserAuthContex";
-import "./App.css";
+import "./styles.css";
 import React, { lazy, Suspense, useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import RecipeListPage from "./pages/RecipeListPage";
+
 import SavedRecipesPage from "./pages/SavedRecipesPage";
 import SavedRecipesDetail from "./components/SavedRecipesDetail";
 import CollectionsDetail from "./components/CollectionsDetail";
@@ -13,6 +12,7 @@ import RegisterForm from "./components/Auth/RegisterForm";
 import DisplayRecipe from "./components/DisplayRecipe";
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
+import "./components/styles/styles.scss";
 const AboutUsPage = lazy(() => import("./pages/AboutUsPage"));
 const NewRecipeForm = lazy(() =>
   import("./components/CreateRecipe/NewRecipeForm")
@@ -20,10 +20,10 @@ const NewRecipeForm = lazy(() =>
 const LoginForm = lazy(() => import("./components/Auth/LoginForm"));
 
 export const pages = [
-  { to: "login", title: "Login" },
+  // { to: "login", title: "Login" },
   { to: "about", title: "About Us" },
-  { to: "collections", title: "Saved Recipes" },
-  { to: "recipes", title: "Recipes" },
+  { to: "collections", title: "Recipes" },
+
   { to: "newrecipe", title: "Create New Recipe" },
 ];
 function App() {
@@ -41,7 +41,7 @@ function App() {
       <main className="App">
         <Header />
         <Routes>
-          {/* <Route path="/" element={<Layout />} />
+          <Route path="/" element={<Layout />} />
           <Route
             index
             element={
@@ -49,7 +49,7 @@ function App() {
                 <Home />
               </Suspense>
             }
-          /> */}
+          />
           <Route
             path="home"
             element={
@@ -58,10 +58,10 @@ function App() {
               </Suspense>
             }
           />
-          <Route
+          {/* <Route
             path="/"
             element={<LandingPage func={pull_data} func2={pull_data2} />}
-          />
+          /> */}
           <Route
             path="collections"
             element={
@@ -118,15 +118,7 @@ function App() {
               </Suspense>
             }
           />
-          <Route
-            path="recipes"
-            element={
-              <RecipeListPage
-                intolerances={stateDataIntolerances}
-                diet={stateDataDiet}
-              />
-            }
-          />
+
           <Route path="show/:id" element={<DisplayRecipe />} />
           {/* for testing only */}
           <Route path="detail" element={<SavedRecipesDetail />} />
@@ -136,7 +128,7 @@ function App() {
             element={<p> yikes - there's nothing at this url. try again ? </p>}
           />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </UserAuthContextProvider>
   );

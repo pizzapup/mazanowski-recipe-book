@@ -1,22 +1,11 @@
-import {
-  Container,
-  Col,
-  Row,
-  Card,
-  CardBody,
-  CardTitle,
-  Button,
-} from "reactstrap";
-import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import SavedRecipesListCard from "../components/SavedRecipesListCard";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
 import { Outlet } from "react-router-dom";
 import { CardGrid } from "../components/CardGrid";
 import { onValue, ref } from "firebase/database";
 import { db } from "../firebase/firebase-config";
 import { dummyData } from "../data/dummyData";
 const SavedRecipesPage = () => {
-  const navigate = useNavigate();
   const [recipeDbList, setRecipeDbList] = useState();
 
   useEffect(() => {
@@ -39,14 +28,14 @@ const SavedRecipesPage = () => {
       <h2 className="text-center">Your Saved Recipes</h2>
       <CardGrid>
         {dummyData.map((data) => {
-          return <SavedRecipesListCard data={data} />;
+          return <RecipeCard data={data} />;
         })}
         {recipeDbList &&
           recipeDbList.map((data) => {
-            return <SavedRecipesListCard data={data} />;
+            return <RecipeCard data={data} />;
           })}
       </CardGrid>
-      <h2 className="text-center">Your Collections</h2>
+
       <Outlet />
     </div>
   );

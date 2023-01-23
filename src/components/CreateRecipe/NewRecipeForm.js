@@ -9,7 +9,6 @@ import DragAndDrop, { ImageUploadMobile } from "./DragAndDrop";
 import { auth } from "../../firebase/firebase-config";
 import "./CreateRecipe.css";
 import TagsInput from "./TagsInput";
-import { Button } from "@mui/material";
 
 const user = auth.currentUser;
 console.log(auth.currentUser);
