@@ -22,6 +22,7 @@ const RegisterForm = () => {
     } catch (err) {
       setError(err.message);
     }
+    navigate("/");
   };
 
   return (

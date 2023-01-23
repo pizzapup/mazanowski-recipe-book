@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase/firebase-config";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, remove } from "firebase/database";
 
 const SavedRecipesDetail = () => {
   const { id } = useParams();
@@ -38,7 +38,11 @@ const SavedRecipesDetail = () => {
       setIsReady(true);
     });
   }, []);
-
+  const deleteRecipe = () => {
+    const dbRef = ref(db, `posts/${id}`);
+    remove(dbRef);
+    navigate("/collections");
+  };
   function ParseIngredient({ ing }) {
     const qtys = { 0.25: "1/4", 0.5: "1/2", 0.75: "3/4" };
     return (
@@ -76,6 +80,10 @@ const SavedRecipesDetail = () => {
               </li>
             </ul>
           </div>
+          {/* <button type="button">update</button>
+          <button type="button" onClick={deleteRecipe}>
+            delete
+          </button> */}
         </div>
       )}
       <button onClick={() => navigate("/collections")}>GO BACK</button>

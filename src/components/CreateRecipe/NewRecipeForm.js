@@ -56,7 +56,7 @@ export default function NewRecipeForm() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImgUrl(downloadURL);
-          setValues({ ...values, image: imgUrl });
+          setValues({ ...values, image: downloadURL });
         });
       }
     );
@@ -125,7 +125,7 @@ export default function NewRecipeForm() {
           label="instructions:"
           onChange={handleInputChange}
         />
-        <TagsInput getData={getTags} />
+        {/* <TagsInput getData={getTags} /> */}
         <TextArea
           value={values.notes}
           name="notes"
@@ -145,10 +145,10 @@ export default function NewRecipeForm() {
 export function parseUserInput(input) {
   const userIngredients = [];
 
-  input !== ""
+  input !== []
     ? input
-        .replaceAll(/[,.]/, " ")
         .split(/[\r?\n]+/)
+        // .replaceAll(/[,]/, " ")
         .filter(Boolean)
         .forEach(function (item) {
           console.log(item);

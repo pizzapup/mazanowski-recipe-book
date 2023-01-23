@@ -22,6 +22,7 @@ const LoginForm = () => {
       setError(err.message);
       console.log(error);
     }
+    navigate("/");
   };
   return (
     <>

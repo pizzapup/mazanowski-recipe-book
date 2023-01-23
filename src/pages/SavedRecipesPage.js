@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { CardGrid } from "../components/CardGrid";
 import { onValue, ref } from "firebase/database";
 import { db } from "../firebase/firebase-config";
-import { dummyData } from "../data/dummyData";
+// import { dummyData } from "../data/dummyData";
 const SavedRecipesPage = () => {
   const [recipeDbList, setRecipeDbList] = useState();
 
@@ -22,14 +22,14 @@ const SavedRecipesPage = () => {
     });
   }, []);
 
-  console.log("dummy", dummyData, "test", recipeDbList);
+  // console.log("dummy", dummyData, "test", recipeDbList);
   return (
     <div>
       <h2 className="text-center">Your Saved Recipes</h2>
       <CardGrid>
-        {dummyData.map((data) => {
+        {/* {dummyData.map((data) => {
           return <RecipeCard data={data} />;
-        })}
+        })} */}
         {recipeDbList &&
           recipeDbList.map((data) => {
             return <RecipeCard data={data} />;
