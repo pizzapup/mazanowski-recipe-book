@@ -31,8 +31,8 @@ const SavedRecipesPage = () => {
           return <RecipeCard data={data} />;
         })} */}
         {recipeDbList &&
-          recipeDbList.map((data) => {
-            return <RecipeCard data={data} />;
+          recipeDbList.map((data, idx) => {
+            return <RecipeCard data={data} key={`key-${idx}`} />;
           })}
       </CardGrid>
 

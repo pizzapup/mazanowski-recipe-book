@@ -22,6 +22,14 @@ const designTools = [
     img: Logos.ReactLogo,
   },
   {
+    title: "Netlify",
+    description:
+      "Remote-first cloud computing development platform that includes build, deploy, and serverless backend services",
+    href: "https://www.netlify.com/?utm_source=google&utm_medium=paid_search&utm_campaign=12755510784&adgroup=118788138897&utm_term=netlify&utm_content=kwd-309804753741&creative=514583565825&device=c&matchtype=b&location=9016137&gclid=CjwKCAiA2rOeBhAsEiwA2Pl7Q8qWxXEjMYPKyIWJ0_BFL9zm7CN4bEvsdr2UJXl7wLAYoPv1o7mtHBoCC3EQAvD_BwE",
+    link: "Netlify.com",
+    img: Logos.NetlifyLogo,
+  },
+  {
     title: "Firebase",
     description:
       "App development platform for building and growing apps and games. Services used: Cloud Firestore, Realtime Database, Cloud Storage, Hosting, and Authentication.",

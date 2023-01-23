@@ -57,11 +57,10 @@ export function UserAuthContextProvider({ children }) {
       const data = {
         uid: user.uid,
         email: user.email,
-        username: username,
-        displayName: user.displayName,
+        displayName: username,
       };
       updateProfile(user, data);
-      writeData(data, [`users/${uid}`]);
+      // writeData(data, [`users/${uid}`]);
       addUserDoc(uid, data);
       return true;
     } catch (error) {

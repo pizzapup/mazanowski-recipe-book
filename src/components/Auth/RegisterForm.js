@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Container, Col, Row, Card, CardTitle } from "reactstrap";
 import { useUserAuth } from "../../firebase/Auth/UserAuthContex";
 import Input from "../Input/Input";
 
@@ -17,10 +16,10 @@ const RegisterForm = () => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(email, password);
-      navigate("/");
+      await signUp(email, password, username);
     } catch (err) {
       setError(err.message);
+      console.log(error);
     }
     navigate("/");
   };
@@ -32,7 +31,7 @@ const RegisterForm = () => {
         <Input
           type="text"
           label="username"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           type="email"
@@ -42,7 +41,7 @@ const RegisterForm = () => {
         <Input
           type="password"
           label="password"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit" className="btn">
           Sign up
