@@ -1,15 +1,15 @@
 import { UserAuthContextProvider } from "./firebase/Auth/UserAuthContex";
 import "./styles.css";
-import React, { lazy, Suspense, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import SavedRecipesPage from "./pages/SavedRecipesPage";
 import SavedRecipesDetail from "./components/SavedRecipesDetail";
 import CollectionsDetail from "./components/CollectionsDetail";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+
 import RegisterForm from "./components/Auth/RegisterForm";
-import DisplayRecipe from "./components/DisplayRecipe";
+
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import "./components/styles/styles.scss";
@@ -27,15 +27,6 @@ export const pages = [
   { to: "newrecipe", title: "Create New Recipe" },
 ];
 function App() {
-  const [stateDataIntolerances, setStateDataIntolerances] = useState("");
-  const [stateDataDiet, setStateDataDiet] = useState("");
-  const pull_data = (data) => {
-    setStateDataIntolerances(data); // LOGS DATA FROM CHILD (array)
-  };
-  const pull_data2 = (data2) => {
-    setStateDataDiet(data2); // LOGS DATA FROM CHILD (array)
-  };
-
   return (
     <UserAuthContextProvider>
       <main className="App">
@@ -58,10 +49,7 @@ function App() {
               </Suspense>
             }
           />
-          {/* <Route
-            path="/"
-            element={<LandingPage func={pull_data} func2={pull_data2} />}
-          /> */}
+
           <Route
             path="collections"
             element={
@@ -119,16 +107,11 @@ function App() {
             }
           />
 
-          <Route path="show/:id" element={<DisplayRecipe />} />
-          {/* for testing only */}
-          <Route path="detail" element={<SavedRecipesDetail />} />
-          {/* for testing only */}
           <Route
             path="*"
             element={<p> yikes - there's nothing at this url. try again ? </p>}
           />
         </Routes>
-        {/* <Footer /> */}
       </main>
     </UserAuthContextProvider>
   );

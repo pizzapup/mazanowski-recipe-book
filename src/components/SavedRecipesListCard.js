@@ -1,3 +1,4 @@
+import { Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "../components/styles/Card.css";
 const SavedRecipesListCard = ({ data, idx, postKey }) => {
@@ -13,7 +14,11 @@ const SavedRecipesListCard = ({ data, idx, postKey }) => {
         />
         <div className="recipe-card-heading">{data.name}</div>
         <div className="recipe-card-cat-tag">
-          category: {data.category && data.category.title}
+          category:
+          <Chip
+            label={data.category && data.category.title}
+            variant="outlined"
+          />
         </div>
         <button onClick={() => navigate(`/collections/${data.id}`)}>
           View Recipe

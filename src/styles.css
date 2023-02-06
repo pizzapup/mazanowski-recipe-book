@@ -58,6 +58,13 @@ body {
 img {
   max-width: 90vw;
 }
+.img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-width: 50px;
+  min-height: 50px;
+}
 form {
   width: 90%;
   max-width: 32rem;

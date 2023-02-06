@@ -3,28 +3,3 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
-.card {
-  width: 300px;
-  background-color: #f4f5f5;
-  display: grid;
-  grid-template-rows: 2fr 1fr;
-  justify-self: center;
-  gap: 1em;
-  .card-img {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  .card-text-section {
-    @include FlexMix($d: column, $a: flex-start, $j: space-between);
-    .card-title {
-      font-size: larger;
-    }
-    .card-subtitle {
-      color: grey;
-    }
-    .card-btn {
-      width: 100%;
-    }
-  }
-}

@@ -8,7 +8,6 @@ import CategoryInput from "./CategoryInput";
 import DragAndDrop, { ImageUploadMobile } from "./DragAndDrop";
 import { auth } from "../../firebase/firebase-config";
 import "./CreateRecipe.css";
-import TagsInput from "./TagsInput";
 
 const user = auth.currentUser;
 console.log(auth.currentUser);
@@ -39,7 +38,7 @@ export default function NewRecipeForm() {
     setValues({ ...values, category: cat });
   };
   const getTags = (tags) => {
-    setValues({ ...values, tags: tags });
+    setValues({ ...values });
     console.log(tags);
   };
 
@@ -125,7 +124,7 @@ export default function NewRecipeForm() {
           label="instructions:"
           onChange={handleInputChange}
         />
-        {/* <TagsInput getData={getTags} /> */}
+
         <TextArea
           value={values.notes}
           name="notes"

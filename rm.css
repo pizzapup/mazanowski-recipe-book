@@ -1,4 +1,11 @@
 :root {
+  --colors-pasta-olivegreen: #89895f;
+  --colors-pasta-dark: #000202;
+  --colors-pasta-darkgreen: #4d481e;
+  --colors-pasta-livegreen: #c6c5a1;
+  --colors-pasta-green: #fcc940;
+  --colors-pasta-offwhite: #f0ece9;
+  --colors-pasta-redorange: #b8593c;
   --colors-tan00: #edeae4;
   --colors-tan01: #f6f2ea;
   --colors-tan40: #f4f1e9;

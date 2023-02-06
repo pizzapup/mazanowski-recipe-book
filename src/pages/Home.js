@@ -1,40 +1,80 @@
 import { Link } from "react-router-dom";
 import CookbookDoc from "../assets/cookbook.docx";
-import DoubleArrowRoundedIcon from "@mui/icons-material/DoubleArrowRounded";
-import FoodBanner from "../assets/imgs/stock-fruit-banner.jpeg";
+
+import BrowseGallery from "../assets/dummyData/elliot.jpg";
+
+import DownloadBook from "../assets/dummyData/downloadbook.jpg";
+import RecipePage from "../assets/dummyData/gallery.jpg";
+import { Hero } from "../components/Hero/Hero";
+
 export const Home = () => {
+  const options = [
+    {
+      route: true,
+      link: "/newrecipe",
+      title: "Upload recipe",
+      description: "add new recipe to the database",
+      image: RecipePage,
+    },
+    {
+      route: true,
+      link: "/collections",
+      title: "View Gallery",
+      description: "view recipes already in the database",
+      image: BrowseGallery,
+    },
+    {
+      route: false,
+      link: CookbookDoc,
+      title: "Download Document",
+      description: "download the cookbook word document",
+      image: DownloadBook,
+    },
+  ];
+
   return (
     <>
       <div className="home-page">
-        <div
-          className="img"
-          style={{ backgroundImage: `url(${FoodBanner})` }}
-        ></div>
-        <h1>Welcome!</h1>
-        <p>
-          Please head to the sign in page to view/add recipes. You can choose
-          "sign in anonymously" if you dont want to create an account.
-        </p>
-        <div>
-          <Link to="/newrecipe" className="home-link">
-            <h2>Upload recipes</h2>{" "}
-            <span className="home-link-span">Add recipe to the database</span>
-            <DoubleArrowRoundedIcon />
-          </Link>
-
-          <Link to="/collections" className="home-link">
-            <h2>View recipes</h2>{" "}
-            <span className="home-link-span">
-              View recipes already uploaded
-            </span>
-            <DoubleArrowRoundedIcon />
-          </Link>
-
-          <a href={CookbookDoc} download className="home-link">
-            <h2>Download the word document</h2>
-            <span className="home-link-span">Download the word document!</span>
-            <DoubleArrowRoundedIcon />
-          </a>
+        <Hero page="home" />
+        <div className="home-options">
+          {options.map((option, idx) => {
+            return (
+              <>
+                {option.route ? (
+                  <Link
+                    to={option.link}
+                    className="home-option"
+                    key={`optionkey-${idx}`}
+                  >
+                    <div
+                      className="img"
+                      style={{ backgroundImage: `url(${option.image})` }}
+                    ></div>
+                    <div className="options-text">
+                      <h2>{option.title}</h2>
+                      <p>{option.description}</p>
+                    </div>
+                  </Link>
+                ) : (
+                  <a
+                    href={option.link}
+                    key={`optionkey-${idx}`}
+                    className="home-option"
+                    download
+                  >
+                    <div
+                      className="img "
+                      style={{ backgroundImage: `url(${option.image})` }}
+                    ></div>
+                    <div className="options-text">
+                      <h2>{option.title}</h2>
+                      <p>{option.description}</p>
+                    </div>
+                  </a>
+                )}
+              </>
+            );
+          })}
         </div>
       </div>
     </>
