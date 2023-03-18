@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# :taco: Mazanowski Recipe Book :sandwich: 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Mazanowski Recipe Book website is based on the 1999 family recipe book compiled by Natalie Mazanowski.
 
-## Available Scripts
+Since the original copy was created, the family has grown and many family members have learned about their intolerance and allergies. My hope it that this application will help not only share these recipes to those without the physical copies, but to help those of us with dietary restrictions to enjoy the recipes.
 
-In the project directory, you can run:
+This application is a one-dude[^1] undertaking and both the front-end and back-end has been implemented by yours truly. (So please be understanding if things are not perfect!)
 
-### `npm start`
+> Visit Site: 
+[mazanowski-recipe-book.netlify](https://mazanowski-recipe-book.netlify.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> GitHub: 
+[mazanowski-recipe-book](https://github.com/pizzapup/recipe-book-maz)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## :watermelon:  Features/Tools 
+- React.js - Open-source front-end JavaScript library | [React.dev](https://react.dev/)
+- Netlify - Remote-first cloud computing development platform that includes build, deploy, and serverless backend services | [Netlify.com](https://www.netlify.com/?utm_source=google&utm_medium=paid_search&utm_campaign=12755510784&adgroup=118788138897&utm_term=netlify&utm_content=kwd-309804753741&creative=514583565825&device=c&matchtype=b&location=9016137&gclid=CjwKCAiA2rOeBhAsEiwA2Pl7Q8qWxXEjMYPKyIWJ0_BFL9zm7CN4bEvsdr2UJXl7wLAYoPv1o7mtHBoCC3EQAvD_BwE)
+- Firebase - App development platform for building and growing apps and games [firebase.google.com](https://firebase.google.com/)
+  - Cloud Firestore
+  - Realtime Database
+  - Cloud Storage
+  - Hosting
+  - Authentication
+- Apple Vision OCR - Detect and recognize multilanguage text in images | [developer.apple.com](https://developer.apple.com/documentation/vision/recognizing_text_in_images)
+- React Router - Enables client-side routing | [reactrouter.com](https://reactrouter.com/en/main)
+- Zestful API - Transforms ingredients from opaque strings to meaningful data in easy-to-consume JSON format | [zestfuldata.com](https://zestfuldata.com/)
+- MUI Autocomplete - Normal text input enhanced by a panel of suggested options | [mui.com/material-ui/react-autocomplete](https://mui.com/material-ui/react-autocomplete/)
+- MUI Material Design Icons - React Material Icons from the official website | [mui.com/material-ui/material-icons](https://mui.com/material-ui/material-icons/)
 
-### `npm test`
+## :croissant:  Coming Soon
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Database
+After all base recipes have been entered, we will have a better idea of what we are working with. This will allow room for more features such as:
+- Ingredient substitutions
+- Create shopping list
+- Measurement unit conversions
+- Filtering
+- Searching
 
-### `npm run build`
+### UI/UX Design
+- Refresh and update styles
+The front-end is far from finished, but does what it needs to do (allow for data entry, display the data, modify the data, and use authentication). Working without a wireframe, mockup, or any design reference has made it challenging to implement quick styles.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[^1]: "one-(wo)man", "one-man", and/or "one-person" just didn't feel right. i consider "dude" universal
