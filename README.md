@@ -1,5 +1,8 @@
 # :taco: Mazanowski Recipe Book :sandwich: 
 
+> Visit Site: 
+[mazanowski-recipe-book.netlify](https://mazanowski-recipe-book.netlify.app/)
+
 ## Contents (Index)
 - [About](#about): Cookbook history, meaning, project links)
 - [Features/Tools Overview](#featurestools-overview): Brief explanation of tools and features the app uses
@@ -15,9 +18,6 @@
      - [Realtime Database](#realtime-database)
      - [Cloud Storage](#cloud-storage)
 - [Coming Soon](#coming-soon): Hopes and goals for the future of the application
-
-> Visit Site: 
-[mazanowski-recipe-book.netlify](https://mazanowski-recipe-book.netlify.app/)
 
 ## About 
 
